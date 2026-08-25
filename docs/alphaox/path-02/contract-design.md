@@ -3,9 +3,9 @@
 ## 0. 文档状态
 
 - **所属分支**：`codex/alphaox/path-02`
-- **当前切片**：`codex/alphaox/path-02-discovery`
-- **阶段**：阶段二，Source Connector / Schema Discovery
-- **状态**：阶段二实现和验收完成，待按阶段规则提交并合入 `codex/alphaox/path-02`；本报告不代表路径二整体完成。
+- **当前切片**：`codex/alphaox/path-02-context-pack`
+- **阶段**：阶段三，Context Pack 与知识资源描述
+- **状态**：阶段三实现和验收完成，待按阶段规则提交并合入 `codex/alphaox/path-02`；本报告不代表路径二整体完成。
 - **人类授权**：人类已同意按阶段开发，并要求每个阶段完成后提交 commit。
 - **路线图**：本阶段不修改 `开发路径图.md`。
 
@@ -31,6 +31,7 @@
 - 合法对象可以被解析为类型安全的值；非法对象返回不泄露原始值的契约错误。
 - 当前阶段的测试和构建通过，且不声称 Source 发现、Binding 发布或运行时执行已经完成。
 - 阶段二能够从仅含契约安全上下文的适配器获取结构元数据，生成排序稳定、引用可验证、带 freshness 和结构指纹的 `SourceSnapshot`。
+- 阶段三能够规范化、导入和导出 Context Pack 及其知识资源，并在生效窗口和生命周期状态下给出可审计的可用性结果。
 
 ## 2. 决策与理由
 
@@ -104,6 +105,16 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 
 当前 `SourceSnapshot` 契约只保留 `sourceId`、版本、发现时间、freshness 和结构字段；不在阶段二擅自扩展 `connectorId`、provenance 或权限执行字段。连接器的权限引用仍由 `SourceConnector` 携带，Binding 的业务追溯与发布规则留给后续阶段。
 
+### 4.3 阶段三 Context Pack 与知识资源设计
+
+阶段三在既有 `ContextPackSchema` 上增加运行时规范化边界，不修改基础 JSON Schema。Pack 内的 `resourceId` 采用全局唯一策略，不按资源类型分区；这样术语、文档和数据字典之间不会出现同 ID 冲突，外部引用和审计定位也保持单一含义。
+
+- Pack、provenance、资源和引用集合按稳定键排序；别名和数据字典 `termIds` 视为集合并排序，重复项直接阻断。文档只保留 `ContentRef`，不接收或持久化全文和原始企业数据。
+- Pack 顶层 `sources` 必须覆盖 provenance 和每个资源的来源；数据字典的 `termIds` 必须指向同一 Pack 中的术语资源。`bindings` 只能引用 `source_binding`，Binding 对象本身由后续阶段解析和发布。
+- 导入先做严格契约校验，再做引用和时间窗口校验；未知字段、断裂引用、重复资源和无效生效窗口不生成部分 Pack。导出使用规范化后的紧凑 JSON，导入/导出 round-trip 必须保持同一规范化值。
+- `published` 且处于 `[effectiveFrom, effectiveTo)` 窗口内的 Pack 才可用；`draft`、`in_review`、`revoked`、`expired` 和 `rolled_back` 均阻断。窗口外阻断，`effectiveTo` 等于当前时间即视为已过期。
+- freshness 为 `expired` 时阻断；`stale` 和 `unknown` 不被标记为新鲜权威，但阶段三返回可用加警告，是否在具体分析中转为 `partial` 或 `blocked` 留给路径三。
+
 ## 5. 状态与失败矩阵
 
 | 场景 | 当前行为 | 后续运行语义 |
@@ -119,6 +130,13 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 | 输入表/列/FK 顺序变化 | 规范化后顺序和结构指纹不变 | 可安全比较同一结构的重复发现 |
 | 仅 rowCount 变化 | 快照保留新 rowCount，但结构指纹不变 | freshness 和行数新鲜度由后续策略判断 |
 | 表/列/关系结构变化 | 生成不同结构指纹 | 后续 Binding 必须重新审查适配范围 |
+| Pack 内资源 ID 重复或跨类型冲突 | 规范化失败，返回 `invalid_pack` | 不产生可导入 Pack |
+| 资源来源、provenance 或术语引用断裂 | 规范化失败，返回 `invalid_pack` | 不使用不完整追溯链 |
+| Pack 为草稿、审核中、撤销、过期或回滚 | 可保存历史对象，但可用性返回 `blocked` | 新运行不得使用该版本 |
+| Pack 尚未生效或已超过 `effectiveTo` | 可保存对象，但当前时点返回 `blocked` | 按版本和生效窗口选择 |
+| freshness 为 `stale` 或 `unknown` | 可用性返回 warning，不声称新鲜 | 路径三决定 `partial` 或 `blocked` |
+| freshness 为 `expired` | 可用性返回 `blocked / freshness_expired` | 不进入当前分析上下文 |
+| 导入 JSON 非法或包含未知字段 | 返回安全错误，不保留原始内容 | 不回退为部分成功 |
 | 歧义字段或同名业务概念 | 不自动选择 | 路径二进入人工审核或 `clarification_required` |
 | 凭据或原始企业行进入对象 | 严格字段拒绝 | 不发送、不持久化、不回退为成功 |
 
@@ -151,6 +169,7 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - Schema 不兼容时拒绝导入，不把未知字段静默降级到旧版本。
 - 本阶段不执行数据库迁移、生产切换或数据删除。
 - 阶段二只在内存中规范化适配器结果，不新增持久化迁移；回滚到阶段二前的已验收 commit 即可移除发现边界，不需要删除外部数据。
+- 阶段三同样只在内存中规范化和导入/导出，不新增数据库或外部存储迁移；回滚到阶段三前的已验收 commit 不需要删除外部数据。
 
 ## 8. 分阶段实施
 
@@ -159,7 +178,7 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 | 0 | 范围和决策门 | 人类确认只做 `semantic-agent` 上下文契约，不连接真实外部系统 |
 | 1 | 公共类型、四类 Schema、边界解析和测试 | 包测试、TypeScript 构建、根级检查、对抗审查通过并提交 |
 | 2 | Connector 契约、Schema 发现规范化和 Snapshot 生成 | 稳定 ID、能力门、引用校验、结构指纹、freshness、失败阻断和根级检查通过并提交 |
-| 3 | Context Pack 和知识资源描述 | 导入、导出、来源追溯、撤销和过期测试通过 |
+| 3 | Context Pack 和知识资源描述 | 全局资源 ID、资源引用、导入/导出、生命周期、freshness 和根级检查通过并提交 |
 | 4 | Binding 草稿、审核、发布和回滚 | 状态机、权限引用、历史版本和冲突测试通过 |
 | 5 | 精确/别名匹配和可选适配边界 | 歧义、未知、向量非权威边界测试通过 |
 | 6 | 集成门 | 差异、测试、风险、回滚和未决项展示后进行人类 Decision Gate |
@@ -191,7 +210,20 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - [x] `npm run build --workspace=@alphaox/semantic-agent` 通过。
 - [x] 对抗复核已处理 locale 依赖排序、重复外键列和能力未声明三类边界。
 
-### 9.3 Browser 验收
+### 9.3 阶段三验收
+
+- [x] Context Pack 内资源 ID 全局唯一，跨类型重复也会阻断。
+- [x] Pack、provenance、资源来源、数据字典术语和 Binding 类型引用完成闭合校验。
+- [x] Pack、资源集合、别名、来源和权限集合完成确定性规范化排序。
+- [x] 非法生效窗口、未知字段、非法 JSON 和断裂引用返回安全错误，不保留原始输入。
+- [x] 规范化导出和导入 round-trip 得到相同值。
+- [x] `published` 生效窗口、草稿、审核中、撤销、过期、回滚和未来生效状态均有明确可用性结果。
+- [x] `stale` / `unknown` freshness 返回 warning，`expired` freshness 返回 blocked。
+- [x] `npm run test --workspace=@alphaox/semantic-agent` 通过：3 个测试文件、18 个测试。
+- [x] `npm run build --workspace=@alphaox/semantic-agent` 通过。
+- [x] 根级 `npm run check` 通过，且无锁文件或依赖变更。
+
+### 9.4 Browser 验收
 
 路径二不创建 Web UI，因此本阶段没有可执行的 Browser 视觉验收。Browser 清单继续由路径五执行；路径二只提供可供路径五渲染的结构化状态、来源、版本和错误契约，不能把未实现 UI 标记为通过。
 
@@ -200,9 +232,10 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - TypeBox 输出的跨语言 JSON Schema 兼容性需要在后续导入/导出门复核。
 - 当前适配器仍是接口边界和本地 fixture；真实数据库/API/文件/知识库连接器、凭据托管、权限执行和连接健康度尚未实现或验收。
 - rowCount 不参与结构指纹；如果后续需要对行数 freshness 做决策，必须在独立数据质量契约中定义，不能把结构指纹当作行数据新鲜度证明。
+- Context Pack 导入/导出当前是进程内边界，尚未接入持久化版本库、签名校验或跨服务传输协议。
 - Binding 的业务冲突规则、向量检索实现、飞书适配器和持久化存储仍未冻结。
-- 当前实现是路径二阶段一、二的可审查起点，不代表生产数据库迁移或生产 API 已完成。
-- 当前批准状态：人类已批准按本计划分阶段开发；阶段一已通过阶段二前置集成门，阶段二实现与验证通过，仍需当前切片 commit、合入 `codex/alphaox/path-02` 及路径二最终 Decision Gate。
+- 当前实现是路径二阶段一、二、三的可审查起点，不代表生产数据库迁移或生产 API 已完成。
+- 当前批准状态：人类已批准按本计划分阶段开发；阶段一、二已通过前置集成门，阶段三实现与验证通过，仍需当前切片 commit、合入 `codex/alphaox/path-02` 及路径二最终 Decision Gate。
 
 ## 11. 来源证据
 
@@ -213,4 +246,6 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - [阶段一测试](../../../packages/semantic-agent/test/contracts.test.ts)
 - [阶段二发现实现](../../../packages/semantic-agent/src/discovery.ts)
 - [阶段二发现测试](../../../packages/semantic-agent/test/discovery.test.ts)
+- [阶段三 Context Pack 实现](../../../packages/semantic-agent/src/context-pack.ts)
+- [阶段三 Context Pack 测试](../../../packages/semantic-agent/test/context-pack.test.ts)
 - [阶段一根级检查修复](../../../packages/ai/scripts/generate-models.ts)
