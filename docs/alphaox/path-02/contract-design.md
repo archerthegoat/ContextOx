@@ -1,11 +1,11 @@
-# AlphaOx 路径二：Analysis Context 契约设计与阶段一验收
+# AlphaOx 路径二：Analysis Context 契约、Schema Discovery 设计与阶段验收
 
 ## 0. 文档状态
 
 - **所属分支**：`codex/alphaox/path-02`
-- **当前切片**：`codex/alphaox/path-02-contracts`
-- **阶段**：阶段一，公共契约
-- **状态**：阶段一目标实现完成；根级检查受仓库既有类型错误阻塞，待集成门复核；本报告不代表路径二整体完成。
+- **当前切片**：`codex/alphaox/path-02-discovery`
+- **阶段**：阶段二，Source Connector / Schema Discovery
+- **状态**：阶段二实现和验收完成，待按阶段规则提交并合入 `codex/alphaox/path-02`；本报告不代表路径二整体完成。
 - **人类授权**：人类已同意按阶段开发，并要求每个阶段完成后提交 commit。
 - **路线图**：本阶段不修改 `开发路径图.md`。
 
@@ -17,11 +17,12 @@
 
 ### 1.2 已核实事实
 
-- `codex/alphaox/path-02` 从当前 `main` 创建，当前工作区干净。
+- `codex/alphaox/path-02` 在阶段一开始从 `main` 创建；阶段二从已合入阶段一和根级检查修复的路径分支切出。
 - 仓库尚无 `semantic-agent` 或 `semantic-web` 产品包。
 - 上游已经存在 `typebox` 依赖；本阶段不新增外部依赖。
 - PASS 01 已确定 Context Pack、Source Binding、权限、新鲜度和版本引用是后续路径的边界。
 - 本阶段不连接真实企业数据、真实飞书 Wiki、生产身份系统或外部写回系统。
+- 阶段一根级检查的已知 `packages/ai` 类型阻塞已在当前路径分支修复：生成的模型目录包装器保留稳定的静态模型类型，即使被 `.gitignore` 排除的模型 JSON 未被水合，根级检查仍可完成。
 
 ### 1.3 成功标准
 
@@ -29,6 +30,7 @@
 - 不接受未知字段、凭据字段或不完整的来源/权限/版本引用。
 - 合法对象可以被解析为类型安全的值；非法对象返回不泄露原始值的契约错误。
 - 当前阶段的测试和构建通过，且不声称 Source 发现、Binding 发布或运行时执行已经完成。
+- 阶段二能够从仅含契约安全上下文的适配器获取结构元数据，生成排序稳定、引用可验证、带 freshness 和结构指纹的 `SourceSnapshot`。
 
 ## 2. 决策与理由
 
@@ -87,9 +89,24 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - 连接器能力声明不代表连接器已经可用，也不代表数据已经被授权。
 - Schema 通过只读契约表达来源能力，不允许模型或客户端传入任意 SQL。
 
+### 4.2 阶段二 Schema Discovery 设计
+
+阶段二把真实来源接入限制在 `SchemaDiscoveryAdapter` 边界。适配器只能接收已通过 `SourceConnector` 契约校验的 `connector`、`snapshotId` 和 `version`；不向适配器传递凭据、任意查询、原始行或模型提示词。`discoverSchema` 能力为 `false` 时，在调用适配器前返回 `blocked / unsupported_capability`。
+
+适配器返回的未知值先经过 fail-closed 解析，再生成严格的 `SourceSnapshot`：
+
+- 表、列、主键和外键必须使用稳定 ID；不从展示名称猜 ID。
+- 表、列、外键约束和关键引用必须唯一且可解析；外键列数必须与目标列数一致。
+- 表按 `tableId`、列按 `ordinal` 后 `columnId`、外键按 `constraintId` 排序。排序使用稳定的 ID 比较，不依赖运行环境 locale。
+- `structureFingerprint` 对方言、表/列结构和关系计算 SHA-256；输入排列变化不改变指纹，结构变化改变指纹。`rowCount` 是观察元数据，不参与结构指纹。
+- `freshness` 原样进入快照并由 `SourceSnapshot` 契约校验；缺失或非法 freshness 不生成成功快照。
+- 适配器异常或返回非法结构时只返回不含原始错误/数据的 `blocked` 结果，不伪造 Snapshot。合法但未定义的原始扩展字段不会进入快照。
+
+当前 `SourceSnapshot` 契约只保留 `sourceId`、版本、发现时间、freshness 和结构字段；不在阶段二擅自扩展 `connectorId`、provenance 或权限执行字段。连接器的权限引用仍由 `SourceConnector` 携带，Binding 的业务追溯与发布规则留给后续阶段。
+
 ## 5. 状态与失败矩阵
 
-| 场景 | 阶段一行为 | 后续运行语义 |
+| 场景 | 当前行为 | 后续运行语义 |
 | --- | --- | --- |
 | 未知字段或错误类型 | 契约校验失败 | `blocked`，不得继续发布 |
 | 缺少来源、版本或权限引用 | 契约校验失败 | `blocked`，不使用不完整上下文 |
@@ -97,6 +114,11 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 | Binding 未人工审核 | 允许保存草稿，不允许当作已发布资产 | 新运行不得使用未发布版本 |
 | Context Pack 被撤销 | 保留历史对象和审计引用 | 新运行拒绝使用，旧报告保留原版本 |
 | 来源发现失败 | 不生成伪造 Snapshot | 后续 Connector 返回 `blocked` 或 `partial` |
+| 连接器未声明 `discoverSchema` 能力 | 在调用适配器前返回 `blocked / unsupported_capability` | 不执行发现，不产生 Snapshot |
+| 适配器返回空表、重复 ID 或断裂引用 | 规范化失败，返回 `blocked / invalid_schema` | 不接受不完整结构 |
+| 输入表/列/FK 顺序变化 | 规范化后顺序和结构指纹不变 | 可安全比较同一结构的重复发现 |
+| 仅 rowCount 变化 | 快照保留新 rowCount，但结构指纹不变 | freshness 和行数新鲜度由后续策略判断 |
+| 表/列/关系结构变化 | 生成不同结构指纹 | 后续 Binding 必须重新审查适配范围 |
 | 歧义字段或同名业务概念 | 不自动选择 | 路径二进入人工审核或 `clarification_required` |
 | 凭据或原始企业行进入对象 | 严格字段拒绝 | 不发送、不持久化、不回退为成功 |
 
@@ -128,6 +150,7 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - Context Pack 回滚只切换发布指针，不删除新版本和审计记录。
 - Schema 不兼容时拒绝导入，不把未知字段静默降级到旧版本。
 - 本阶段不执行数据库迁移、生产切换或数据删除。
+- 阶段二只在内存中规范化适配器结果，不新增持久化迁移；回滚到阶段二前的已验收 commit 即可移除发现边界，不需要删除外部数据。
 
 ## 8. 分阶段实施
 
@@ -135,7 +158,7 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 | --- | --- | --- |
 | 0 | 范围和决策门 | 人类确认只做 `semantic-agent` 上下文契约，不连接真实外部系统 |
 | 1 | 公共类型、四类 Schema、边界解析和测试 | 包测试、TypeScript 构建、根级检查、对抗审查通过并提交 |
-| 2 | Connector 契约、Schema 发现规范化和 Snapshot 生成 | 本地确定性 fixture 覆盖结构变化、发现失败和 freshness |
+| 2 | Connector 契约、Schema 发现规范化和 Snapshot 生成 | 稳定 ID、能力门、引用校验、结构指纹、freshness、失败阻断和根级检查通过并提交 |
 | 3 | Context Pack 和知识资源描述 | 导入、导出、来源追溯、撤销和过期测试通过 |
 | 4 | Binding 草稿、审核、发布和回滚 | 状态机、权限引用、历史版本和冲突测试通过 |
 | 5 | 精确/别名匹配和可选适配边界 | 歧义、未知、向量非权威边界测试通过 |
@@ -152,19 +175,34 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - [x] 非法对象产生不包含原始输入的安全错误。
 - [x] `npm run test --workspace=@alphaox/semantic-agent` 通过。
 - [x] `npm run build --workspace=@alphaox/semantic-agent` 通过。
-- [ ] 根级 `npm run check` 通过；本次执行被既有 `packages/ai` 模型目录类型错误阻塞，未出现 `semantic-agent` 新增类型错误。
+- [x] 根级 `npm run check` 通过；另在移走被忽略的 `packages/ai/src/providers/data` 后复跑，确认未水合模型 JSON 时仍通过。
 - [x] 提交范围已审查为仅包含本切片文件；阶段 commit 结果以 Git readback 为准。
 
-### 9.2 Browser 验收
+### 9.2 阶段二验收
+
+- [x] `SourceConnector` 先校验，凭据和额外字段不进入适配器上下文；未声明 `discoverSchema` 能力的连接器不会调用适配器。
+- [x] 适配器上下文只包含 `connector`、`snapshotId` 和 `version`；不包含 SQL、凭据、原始行或模型输入。
+- [x] 表、列、主键和外键引用完成稳定 ID、重复值、缺失目标和列数匹配校验。
+- [x] 输入顺序变化得到相同规范化 Snapshot 和结构指纹；结构变化得到新指纹。
+- [x] 结构指纹不因 rowCount 单独变化而变化，并保留 freshness 元数据。
+- [x] 适配器异常、空结构、非法结构返回 `blocked`，不返回伪造 Snapshot，也不泄露原始错误。
+- [x] 原始 schema 扩展字段不会写入 Snapshot；SourceSnapshot 仍由严格契约校验。
+- [x] `npm run test --workspace=@alphaox/semantic-agent` 通过：2 个测试文件、12 个测试。
+- [x] `npm run build --workspace=@alphaox/semantic-agent` 通过。
+- [x] 对抗复核已处理 locale 依赖排序、重复外键列和能力未声明三类边界。
+
+### 9.3 Browser 验收
 
 路径二不创建 Web UI，因此本阶段没有可执行的 Browser 视觉验收。Browser 清单继续由路径五执行；路径二只提供可供路径五渲染的结构化状态、来源、版本和错误契约，不能把未实现 UI 标记为通过。
 
 ## 10. 未决风险与批准状态
 
 - TypeBox 输出的跨语言 JSON Schema 兼容性需要在后续导入/导出门复核。
+- 当前适配器仍是接口边界和本地 fixture；真实数据库/API/文件/知识库连接器、凭据托管、权限执行和连接健康度尚未实现或验收。
+- rowCount 不参与结构指纹；如果后续需要对行数 freshness 做决策，必须在独立数据质量契约中定义，不能把结构指纹当作行数据新鲜度证明。
 - Binding 的业务冲突规则、向量检索实现、飞书适配器和持久化存储仍未冻结。
-- 当前 Schema 是路径二阶段一的可审查起点，不代表生产数据库迁移或生产 API 已完成。
-- 当前批准状态：人类已批准按本计划分阶段开发；阶段一 commit 和后续阶段仍需分别验收。
+- 当前实现是路径二阶段一、二的可审查起点，不代表生产数据库迁移或生产 API 已完成。
+- 当前批准状态：人类已批准按本计划分阶段开发；阶段一已通过阶段二前置集成门，阶段二实现与验证通过，仍需当前切片 commit、合入 `codex/alphaox/path-02` 及路径二最终 Decision Gate。
 
 ## 11. 来源证据
 
@@ -173,3 +211,6 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - [仓库治理规则](../../../AGENTS.md)
 - [阶段一实现](../../../packages/semantic-agent/src/contracts.ts)
 - [阶段一测试](../../../packages/semantic-agent/test/contracts.test.ts)
+- [阶段二发现实现](../../../packages/semantic-agent/src/discovery.ts)
+- [阶段二发现测试](../../../packages/semantic-agent/test/discovery.test.ts)
+- [阶段一根级检查修复](../../../packages/ai/scripts/generate-models.ts)
