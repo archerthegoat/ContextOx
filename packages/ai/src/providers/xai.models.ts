@@ -4,5 +4,14 @@
 import values from "./data/xai.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const XAI_MODELS: ModelCatalog<typeof values, "xai"> =
-	flattenModelCatalog("xai", values);
+type XAI_MODELS_GROUPS = {
+	"openai-responses": {
+		"grok-4.3": object;
+		"grok-4.5": object;
+		"grok-4.6": object;
+		"grok-build-0.1": object;
+	};
+};
+
+export const XAI_MODELS: ModelCatalog<XAI_MODELS_GROUPS, "xai"> =
+	flattenModelCatalog("xai", values as XAI_MODELS_GROUPS);

@@ -2912,11 +2912,29 @@ async function generateModels() {
 					`${providerId.toUpperCase().replace(/[^A-Z0-9]+/g, "_")}_MODELS`;
 				const generatedShardFiles = new Set<string>();
 				for (const providerId of sortedProviderIds) {
+					const models = providers[providerId];
+					const modelIdsByApi = new Map<string, string[]>();
+					for (const modelId of Object.keys(models).sort()) {
+						const api = models[modelId].api;
+						const modelIds = modelIdsByApi.get(api) ?? [];
+						modelIds.push(modelId);
+						modelIdsByApi.set(api, modelIds);
+					}
+					const catalogTypeName = `${catalogConstName(providerId)}_GROUPS`;
 					let output = generatedHeader;
 					output += `import values from "./data/${providerId}.json" with { type: "json" };\n`;
 					output += `import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";\n\n`;
-					output += `export const ${catalogConstName(providerId)}: ModelCatalog<typeof values, ${JSON.stringify(providerId)}> =\n`;
-					output += `\tflattenModelCatalog(${JSON.stringify(providerId)}, values);\n`;
+					output += `type ${catalogTypeName} = {\n`;
+					for (const [api, modelIds] of Array.from(modelIdsByApi.entries()).sort(([a], [b]) => a.localeCompare(b))) {
+						output += `\t${JSON.stringify(api)}: {\n`;
+						for (const modelId of modelIds) {
+							output += `\t\t${JSON.stringify(modelId)}: object;\n`;
+						}
+						output += `\t};\n`;
+					}
+					output += `};\n\n`;
+					output += `export const ${catalogConstName(providerId)}: ModelCatalog<${catalogTypeName}, ${JSON.stringify(providerId)}> =\n`;
+					output += `\tflattenModelCatalog(${JSON.stringify(providerId)}, values as ${catalogTypeName});\n`;
 					const filename = `${providerId}.models.ts`;
 					generatedShardFiles.add(filename);
 					writeFileSync(join(providersDir, filename), output);

@@ -4,5 +4,71 @@
 import values from "./data/cloudflare-ai-gateway.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const CLOUDFLARE_AI_GATEWAY_MODELS: ModelCatalog<typeof values, "cloudflare-ai-gateway"> =
-	flattenModelCatalog("cloudflare-ai-gateway", values);
+type CLOUDFLARE_AI_GATEWAY_MODELS_GROUPS = {
+	"anthropic-messages": {
+		"claude-fable-5": object;
+		"claude-haiku-4.5": object;
+		"claude-opus-4.5": object;
+		"claude-opus-4.6": object;
+		"claude-opus-4.7": object;
+		"claude-opus-4.8": object;
+		"claude-opus-5": object;
+		"claude-sonnet-4.5": object;
+		"claude-sonnet-4.6": object;
+		"claude-sonnet-5": object;
+	};
+	"openai-completions": {
+		"workers-ai/@cf/google/gemma-4-26b-a4b-it": object;
+		"workers-ai/@cf/ibm-granite/granite-4.0-h-micro": object;
+		"workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast": object;
+		"workers-ai/@cf/meta/llama-4-scout-17b-16e-instruct": object;
+		"workers-ai/@cf/mistralai/mistral-small-3.1-24b-instruct": object;
+		"workers-ai/@cf/moonshotai/kimi-k2.6": object;
+		"workers-ai/@cf/moonshotai/kimi-k2.7-code": object;
+		"workers-ai/@cf/nvidia/nemotron-3-120b-a12b": object;
+		"workers-ai/@cf/openai/gpt-oss-120b": object;
+		"workers-ai/@cf/openai/gpt-oss-20b": object;
+		"workers-ai/@cf/qwen/qwen3-30b-a3b-fp8": object;
+		"workers-ai/@cf/zai-org/glm-4.7-flash": object;
+		"workers-ai/@cf/zai-org/glm-5.2": object;
+	};
+	"openai-responses": {
+		"gpt-4": object;
+		"gpt-4-turbo": object;
+		"gpt-4.1": object;
+		"gpt-4.1-mini": object;
+		"gpt-4.1-nano": object;
+		"gpt-4o": object;
+		"gpt-4o-mini": object;
+		"gpt-5": object;
+		"gpt-5-mini": object;
+		"gpt-5-nano": object;
+		"gpt-5-pro": object;
+		"gpt-5.1": object;
+		"gpt-5.2": object;
+		"gpt-5.2-chat-latest": object;
+		"gpt-5.2-pro": object;
+		"gpt-5.3-chat-latest": object;
+		"gpt-5.3-codex": object;
+		"gpt-5.3-codex-spark": object;
+		"gpt-5.4": object;
+		"gpt-5.4-mini": object;
+		"gpt-5.4-nano": object;
+		"gpt-5.4-pro": object;
+		"gpt-5.5": object;
+		"gpt-5.5-pro": object;
+		"gpt-5.6": object;
+		"gpt-5.6-luna": object;
+		"gpt-5.6-sol": object;
+		"gpt-5.6-terra": object;
+		"o1": object;
+		"o1-pro": object;
+		"o3": object;
+		"o3-mini": object;
+		"o3-pro": object;
+		"o4-mini": object;
+	};
+};
+
+export const CLOUDFLARE_AI_GATEWAY_MODELS: ModelCatalog<CLOUDFLARE_AI_GATEWAY_MODELS_GROUPS, "cloudflare-ai-gateway"> =
+	flattenModelCatalog("cloudflare-ai-gateway", values as CLOUDFLARE_AI_GATEWAY_MODELS_GROUPS);

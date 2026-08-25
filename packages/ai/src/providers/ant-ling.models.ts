@@ -4,5 +4,13 @@
 import values from "./data/ant-ling.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const ANT_LING_MODELS: ModelCatalog<typeof values, "ant-ling"> =
-	flattenModelCatalog("ant-ling", values);
+type ANT_LING_MODELS_GROUPS = {
+	"openai-completions": {
+		"Ling-2.6-1T": object;
+		"Ling-2.6-flash": object;
+		"Ring-2.6-1T": object;
+	};
+};
+
+export const ANT_LING_MODELS: ModelCatalog<ANT_LING_MODELS_GROUPS, "ant-ling"> =
+	flattenModelCatalog("ant-ling", values as ANT_LING_MODELS_GROUPS);

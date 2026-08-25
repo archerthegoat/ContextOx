@@ -4,5 +4,47 @@
 import values from "./data/github-copilot.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const GITHUB_COPILOT_MODELS: ModelCatalog<typeof values, "github-copilot"> =
-	flattenModelCatalog("github-copilot", values);
+type GITHUB_COPILOT_MODELS_GROUPS = {
+	"anthropic-messages": {
+		"claude-haiku-4.5": object;
+		"claude-opus-4.5": object;
+		"claude-opus-4.6": object;
+		"claude-opus-4.7": object;
+		"claude-opus-4.8": object;
+		"claude-opus-5": object;
+		"claude-sonnet-4": object;
+		"claude-sonnet-4.5": object;
+		"claude-sonnet-4.6": object;
+		"claude-sonnet-5": object;
+	};
+	"openai-completions": {
+		"claude-fable-5": object;
+		"gemini-3.1-pro-preview": object;
+		"gemini-3.5-flash": object;
+		"gemini-3.6-flash": object;
+		"gemini-3.7-flash": object;
+		"gpt-4.1": object;
+		"kimi-k2.7-code": object;
+		"kimi-k3": object;
+	};
+	"openai-responses": {
+		"gpt-5-mini": object;
+		"gpt-5.2": object;
+		"gpt-5.2-codex": object;
+		"gpt-5.3-codex": object;
+		"gpt-5.4": object;
+		"gpt-5.4-mini": object;
+		"gpt-5.4-nano": object;
+		"gpt-5.5": object;
+		"gpt-5.6-luna": object;
+		"gpt-5.6-sol": object;
+		"gpt-5.6-terra": object;
+		"grok-4.5": object;
+		"grok-4.6": object;
+		"mai-code-1-flash-picker": object;
+		"mai-code-1.1-flash": object;
+	};
+};
+
+export const GITHUB_COPILOT_MODELS: ModelCatalog<GITHUB_COPILOT_MODELS_GROUPS, "github-copilot"> =
+	flattenModelCatalog("github-copilot", values as GITHUB_COPILOT_MODELS_GROUPS);
