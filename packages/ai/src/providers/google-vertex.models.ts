@@ -4,5 +4,23 @@
 import values from "./data/google-vertex.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const GOOGLE_VERTEX_MODELS: ModelCatalog<typeof values, "google-vertex"> =
-	flattenModelCatalog("google-vertex", values);
+type GOOGLE_VERTEX_MODELS_GROUPS = {
+	"google-vertex": {
+		"gemini-2.5-flash": object;
+		"gemini-2.5-flash-lite": object;
+		"gemini-2.5-pro": object;
+		"gemini-3-flash-preview": object;
+		"gemini-3.1-flash-lite": object;
+		"gemini-3.1-pro-preview": object;
+		"gemini-3.1-pro-preview-customtools": object;
+		"gemini-3.5-flash": object;
+		"gemini-3.5-flash-lite": object;
+		"gemini-3.6-flash": object;
+		"gemini-3.7-flash": object;
+		"gemini-flash-latest": object;
+		"gemini-flash-lite-latest": object;
+	};
+};
+
+export const GOOGLE_VERTEX_MODELS: ModelCatalog<GOOGLE_VERTEX_MODELS_GROUPS, "google-vertex"> =
+	flattenModelCatalog("google-vertex", values as GOOGLE_VERTEX_MODELS_GROUPS);

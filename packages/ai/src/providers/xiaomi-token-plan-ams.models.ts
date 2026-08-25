@@ -4,5 +4,12 @@
 import values from "./data/xiaomi-token-plan-ams.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const XIAOMI_TOKEN_PLAN_AMS_MODELS: ModelCatalog<typeof values, "xiaomi-token-plan-ams"> =
-	flattenModelCatalog("xiaomi-token-plan-ams", values);
+type XIAOMI_TOKEN_PLAN_AMS_MODELS_GROUPS = {
+	"openai-completions": {
+		"mimo-v2.5": object;
+		"mimo-v2.5-pro": object;
+	};
+};
+
+export const XIAOMI_TOKEN_PLAN_AMS_MODELS: ModelCatalog<XIAOMI_TOKEN_PLAN_AMS_MODELS_GROUPS, "xiaomi-token-plan-ams"> =
+	flattenModelCatalog("xiaomi-token-plan-ams", values as XIAOMI_TOKEN_PLAN_AMS_MODELS_GROUPS);

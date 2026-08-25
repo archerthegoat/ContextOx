@@ -4,5 +4,12 @@
 import values from "./data/deepseek.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const DEEPSEEK_MODELS: ModelCatalog<typeof values, "deepseek"> =
-	flattenModelCatalog("deepseek", values);
+type DEEPSEEK_MODELS_GROUPS = {
+	"openai-completions": {
+		"deepseek-v4-flash": object;
+		"deepseek-v4-pro": object;
+	};
+};
+
+export const DEEPSEEK_MODELS: ModelCatalog<DEEPSEEK_MODELS_GROUPS, "deepseek"> =
+	flattenModelCatalog("deepseek", values as DEEPSEEK_MODELS_GROUPS);
