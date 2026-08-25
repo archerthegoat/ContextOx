@@ -72,17 +72,19 @@ If rebase conflicts occur:
 
 ## AlphaOx Pass Workflow
 
-For AlphaOx development, keep roadmap, version, and final integration roles distinct:
+For AlphaOx development, use `main` as the only integration and final stable branch:
 
-- `main` is the final stable branch.
-- `codex/alphaox/roadmap` is the roadmap baseline branch. It records the approved roadmap and governance baseline; it is not a substitute for a Pass implementation branch.
-- `codex/alphaox/pass-<n>` is a version branch for one approved development path. It is also that Pass's integration branch.
+- `main` is the final stable branch and the only integration branch.
+- `codex/alphaox/pass-<n>` is a version branch for one approved development path, created from `main`. It is also that Pass's integration branch.
 - `codex/alphaox/pass-<n>-<slice>` is a smaller version or implementation branch created from the current Pass branch. After its scope and gates pass, merge it back into the corresponding `pass-<n>` branch. Do not use `pass-<n>/<slice>`: Git cannot address child refs beneath an existing `pass-<n>` branch.
 - A completed Pass is merged into `main` only after the whole Pass has passed its integration checks, adversarial review, and human Decision Gate.
 
+- Do not create, switch to, or use `codex/alphaox/roadmap`.
+- Approved roadmap edits are applied directly on `main` only after the exact diff has been shown and explicitly approved by the human.
+
 Do not create a second branch with a vague `aggregate` or `integration` name for a Pass. The Pass branch itself is the aggregation and integration branch for its smaller branches. Keep the branch names explicit so the version boundary is visible.
 
-After the current development path is complete, review `开发路径图.md` for gaps, conflicts, or directions that may need revision. This review must happen before declaring the path complete, but it must not edit the roadmap automatically. If a change appears necessary, show the human the exact proposed content or diff and ask for explicit approval. Only after that approval may the approved roadmap change be made. If no change is needed, report that no roadmap change is proposed. General permission to continue development, commit, merge, or complete a Pass does not authorize a roadmap edit.
+After the current development path is complete, review `开发路径图.md` for gaps, conflicts, or directions that may need revision. This review must happen before declaring the path complete, but it must not edit the roadmap automatically. If a change appears necessary, show the human the exact proposed content or diff and ask for explicit approval. Only after that approval may the approved roadmap change be made directly on `main`. If no change is needed, report that no roadmap change is proposed. General permission to continue development, commit, merge, or complete a Pass does not authorize a roadmap edit.
 
 ## Issues and PRs
 
