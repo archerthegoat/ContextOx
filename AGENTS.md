@@ -70,6 +70,20 @@ If rebase conflicts occur:
 - If a conflict is in a file you did not modify, abort and ask the user.
 - Never force push.
 
+## AlphaOx Pass Workflow
+
+For AlphaOx development, keep roadmap, version, and final integration roles distinct:
+
+- `main` is the final stable branch.
+- `codex/alphaox/roadmap` is the roadmap baseline branch. It records the approved roadmap and governance baseline; it is not a substitute for a Pass implementation branch.
+- `codex/alphaox/pass-<n>` is a version branch for one approved development path. It is also that Pass's integration branch.
+- `codex/alphaox/pass-<n>/<slice>` is a smaller version or implementation branch created from the current Pass branch. After its scope and gates pass, merge it back into the corresponding `pass-<n>` branch.
+- A completed Pass is merged into `main` only after the whole Pass has passed its integration checks, adversarial review, and human Decision Gate.
+
+Do not create a second branch with a vague `aggregate` or `integration` name for a Pass. The Pass branch itself is the aggregation and integration branch for its smaller branches. Keep the branch names explicit so the version boundary is visible.
+
+After the current development path is complete, review `开发路径图.md` for gaps, conflicts, or directions that may need revision. This review must happen before declaring the path complete, but it must not edit the roadmap automatically. If a change appears necessary, show the human the exact proposed content or diff and ask for explicit approval. Only after that approval may the approved roadmap change be made. If no change is needed, report that no roadmap change is proposed. General permission to continue development, commit, merge, or complete a Pass does not authorize a roadmap edit.
+
 ## Issues and PRs
 
 See `CONTRIBUTING.md` for the contributor gate (auto-close workflows, `lgtm`/`lgtmi`, quality bar).
