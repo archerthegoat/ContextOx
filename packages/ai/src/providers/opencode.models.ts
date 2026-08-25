@@ -4,5 +4,77 @@
 import values from "./data/opencode.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const OPENCODE_MODELS: ModelCatalog<typeof values, "opencode"> =
-	flattenModelCatalog("opencode", values);
+type OPENCODE_MODELS_GROUPS = {
+	"anthropic-messages": {
+		"claude-fable-5": object;
+		"claude-haiku-4-5": object;
+		"claude-opus-4-5": object;
+		"claude-opus-4-6": object;
+		"claude-opus-4-7": object;
+		"claude-opus-4-8": object;
+		"claude-opus-5": object;
+		"claude-sonnet-4": object;
+		"claude-sonnet-4-5": object;
+		"claude-sonnet-4-6": object;
+		"claude-sonnet-5": object;
+		"qwen3.5-plus": object;
+		"qwen3.6-plus": object;
+	};
+	"google-generative-ai": {
+		"gemini-3-flash": object;
+		"gemini-3.1-pro": object;
+		"gemini-3.5-flash": object;
+		"gemini-3.5-flash-lite": object;
+		"gemini-3.6-flash": object;
+		"gemini-3.7-flash": object;
+	};
+	"openai-completions": {
+		"big-pickle": object;
+		"deepseek-v4-flash": object;
+		"deepseek-v4-pro": object;
+		"glm-5": object;
+		"glm-5.1": object;
+		"glm-5.2": object;
+		"hy3-free": object;
+		"kimi-k2.5": object;
+		"kimi-k2.6": object;
+		"kimi-k2.7-code": object;
+		"kimi-k3": object;
+		"mimo-v2.5-free": object;
+		"minimax-m2.5": object;
+		"minimax-m2.7": object;
+		"minimax-m3": object;
+		"nemotron-3-ultra-free": object;
+		"nemotron-3.5-lightning-free": object;
+		"x-preview-f-free": object;
+	};
+	"openai-responses": {
+		"gpt-5": object;
+		"gpt-5-codex": object;
+		"gpt-5-nano": object;
+		"gpt-5.1": object;
+		"gpt-5.1-codex": object;
+		"gpt-5.1-codex-max": object;
+		"gpt-5.1-codex-mini": object;
+		"gpt-5.2": object;
+		"gpt-5.2-codex": object;
+		"gpt-5.3-codex": object;
+		"gpt-5.4": object;
+		"gpt-5.4-mini": object;
+		"gpt-5.4-nano": object;
+		"gpt-5.4-pro": object;
+		"gpt-5.5": object;
+		"gpt-5.5-pro": object;
+		"gpt-5.6-luna": object;
+		"gpt-5.6-sol": object;
+		"gpt-5.6-terra": object;
+		"grok-4.5": object;
+		"grok-4.6": object;
+		"grok-build-0.1": object;
+		"muse-spark-1.2": object;
+		"muse-spark-1.2-contributor-free": object;
+	};
+};
+
+export const OPENCODE_MODELS: ModelCatalog<OPENCODE_MODELS_GROUPS, "opencode"> =
+	flattenModelCatalog("opencode", values as OPENCODE_MODELS_GROUPS);

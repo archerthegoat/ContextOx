@@ -4,5 +4,42 @@
 import values from "./data/nvidia.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const NVIDIA_MODELS: ModelCatalog<typeof values, "nvidia"> =
-	flattenModelCatalog("nvidia", values);
+type NVIDIA_MODELS_GROUPS = {
+	"openai-completions": {
+		"deepseek-ai/deepseek-v4-flash-0731": object;
+		"google/gemma-3-12b-it": object;
+		"google/gemma-3-4b-it": object;
+		"meta/llama-3.1-70b-instruct": object;
+		"meta/llama-3.1-8b-instruct": object;
+		"meta/llama-3.2-11b-vision-instruct": object;
+		"meta/llama-3.2-90b-vision-instruct": object;
+		"meta/llama-3.3-70b-instruct": object;
+		"meta/muse-glimmer-30b": object;
+		"minimaxai/minimax-m3": object;
+		"mistralai/mistral-7b-instruct-v0.3": object;
+		"moonshotai/kimi-k2.6": object;
+		"moonshotai/kimi-k3": object;
+		"nvidia/cosmos-reason2-8b": object;
+		"nvidia/llama-3.1-nemotron-70b-instruct": object;
+		"nvidia/llama-3.1-nemotron-nano-8b-v1": object;
+		"nvidia/llama-3.1-nemotron-nano-vl-8b-v1": object;
+		"nvidia/llama-3.1-nemotron-ultra-253b-v1": object;
+		"nvidia/llama-3.3-nemotron-super-49b-v1": object;
+		"nvidia/llama-3.3-nemotron-super-49b-v1.5": object;
+		"nvidia/nemotron-3-nano-30b-a3b": object;
+		"nvidia/nemotron-3-nano-omni-30b-a3b-reasoning": object;
+		"nvidia/nemotron-3-super-120b-a12b": object;
+		"nvidia/nemotron-3-ultra-550b-a55b": object;
+		"nvidia/nemotron-3.5-lightning-30b-a3b": object;
+		"nvidia/nemotron-nano-12b-v2-vl": object;
+		"nvidia/nvidia-nemotron-nano-9b-v2": object;
+		"openai/gpt-oss-120b": object;
+		"openai/gpt-oss-20b": object;
+		"poolside/laguna-xs-2.1": object;
+		"stepfun-ai/step-3.7-flash": object;
+		"thinkingmachines/inkling": object;
+	};
+};
+
+export const NVIDIA_MODELS: ModelCatalog<NVIDIA_MODELS_GROUPS, "nvidia"> =
+	flattenModelCatalog("nvidia", values as NVIDIA_MODELS_GROUPS);
