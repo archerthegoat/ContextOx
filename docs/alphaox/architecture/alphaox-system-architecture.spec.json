@@ -1,0 +1,150 @@
+{
+  "layout": "panorama",
+  "style": "paper",
+  "animation": "trace",
+  "canvas": {
+    "width": 1600,
+    "height": 1300,
+    "fps": 20,
+    "frames": 96
+  },
+  "density": "balanced",
+  "aspect_ratio": "landscape",
+  "motion_level": "subtle",
+  "signature": "@alphaox",
+  "title": {
+    "prefix": "AlphaOx",
+    "highlight": "通用分析 Agent",
+    "subtitle": "Pass 01 · Pi 二次开发 · 受控证据链"
+  },
+  "input_title": "请求与上下文",
+  "input_style": "plain",
+  "inputs": [
+    {
+      "label": "用户问题",
+      "icon": "message",
+      "icon_style": "illustrated",
+      "color": "#2f9d98"
+    },
+    {
+      "label": "身份与策略",
+      "icon": "identity",
+      "icon_style": "illustrated",
+      "color": "#6b7cc9"
+    },
+    {
+      "label": "数据与知识",
+      "icon": "database",
+      "icon_style": "illustrated",
+      "color": "#3f9e7d"
+    }
+  ],
+  "core": {
+    "title": "分析核心",
+    "subtitle": "受控计划 · 只读执行 · 可追踪",
+    "cards": [
+      {
+        "title": "上下文",
+        "body": "Snapshot / Binding\nContext Pack",
+        "icon": "package",
+        "icon_style": "hero",
+        "icon_size": "hero",
+        "color": "#3f9e7d"
+      },
+      {
+        "title": "计划",
+        "body": "Analysis Plan\nQuery Plan",
+        "icon": "plan",
+        "icon_style": "hero",
+        "icon_size": "hero",
+        "color": "#6b7cc9"
+      },
+      {
+        "title": "执行",
+        "body": "权限校验\n参数化查询",
+        "icon": "guardrail",
+        "icon_style": "hero",
+        "icon_size": "hero",
+        "color": "#e08a3c"
+      },
+      {
+        "title": "证据",
+        "body": "结果最小化\nTrace / 报告",
+        "icon": "audit",
+        "icon_style": "hero",
+        "icon_size": "hero",
+        "color": "#2f9d98"
+      }
+    ]
+  },
+  "decision": {
+    "title": "可回答？",
+    "body": "新鲜、授权\n证据足够",
+    "yes_label": "输出"
+  },
+  "output": {
+    "label": "图表 / 报告",
+    "icon": "file",
+    "icon_style": "illustrated",
+    "color": "#d96a92"
+  },
+  "loop_label": "澄清、重规划、重试均受预算与策略限制",
+  "retry_label": "否 / 阻断、澄清或返回 partial",
+  "left_panel": {
+    "title": "上下文边界",
+    "badge": "授权后发现",
+    "down_label": "发现",
+    "up_label": "审核",
+    "cards": [
+      {
+        "title": "来源",
+        "body": "Connector\n只读能力",
+        "icon": "server",
+        "icon_style": "illustrated",
+        "color": "#3f9e7d"
+      },
+      {
+        "title": "绑定",
+        "body": "字段与口径\n版本 / 生效期",
+        "icon": "clipboard",
+        "icon_style": "illustrated",
+        "color": "#6b7cc9"
+      },
+      {
+        "title": "知识",
+        "body": "术语与文档\n来源 / 新鲜度",
+        "icon": "file",
+        "icon_style": "illustrated",
+        "color": "#2f9d98"
+      }
+    ]
+  },
+  "right_panel": {
+    "title": "产品交付",
+    "incoming_label": "呈现",
+    "return_label": "审计",
+    "cards": [
+      {
+        "title": "结果",
+        "body": "KPI / 图表\n表格 / 解释",
+        "icon": "eye",
+        "icon_style": "illustrated",
+        "color": "#6b7cc9"
+      },
+      {
+        "title": "报告",
+        "body": "可持续保存\n来源可回看",
+        "icon": "file",
+        "icon_style": "illustrated",
+        "color": "#d96a92"
+      },
+      {
+        "title": "Trace",
+        "body": "run / trace\n状态 / 警告",
+        "icon": "audit",
+        "icon_style": "illustrated",
+        "color": "#3f9e7d"
+      }
+    ]
+  }
+}
