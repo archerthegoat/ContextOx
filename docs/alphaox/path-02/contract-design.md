@@ -5,7 +5,7 @@
 - **所属分支**：`codex/alphaox/path-02-matching`
 - **当前切片**：`codex/alphaox/path-02-matching`
 - **阶段**：阶段五，精确匹配、别名匹配和可选向量适配边界
-- **状态**：阶段五架构决策已获人类确认，实施和验收待完成；本报告不代表路径二整体完成。
+- **状态**：阶段五实现和本切片验收完成，子分支集成门待执行；本报告不代表路径二整体完成。
 - **人类授权**：人类已同意按阶段开发，并要求每个阶段完成后提交 commit。
 - **路线图**：本阶段不修改 `开发路径图.md`。
 
@@ -172,6 +172,7 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 | Binding freshness 为 expired | 发布和回滚阻断 | 不使用过期版本 |
 | 回滚目标未曾发布或不存在 | 返回安全错误 | 当前活动指针不变 |
 | Pack 当前不可用或 Binding 引用断裂 | 不构造部分候选目录 | 返回 `blocked`，不继续匹配 |
+| Pack 引用同一 Binding ID 的多个版本 | 不把历史版本暴露为候选 | 返回 `blocked`，不继续匹配 |
 | 查询为空或请求字段非法 | 拒绝匹配请求 | 返回 `blocked`，不回退为模糊搜索 |
 | ID、标签、别名或物理名称唯一命中 | 按固定优先级返回确定性结果 | 返回 `matched` |
 | 同一匹配层出现多个候选 | 保留全部稳定排序后的候选 | 返回 `clarification_required` |
@@ -286,17 +287,17 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 
 ### 9.5 阶段五验收
 
-- [ ] 候选目录只接收可用 Context Pack 和当前已发布 Binding；Pack 不可用或 Binding 引用断裂时返回 `blocked`，不生成部分目录。
-- [ ] Binding、Term、Data Dictionary 和 Document 按批准的字段生成候选；定义、描述和文档全文不进入默认匹配输入。
-- [ ] 稳定 ID、Unicode NFKC 文本、空白折叠和 Unicode 小写化规则确定且可重复；不引入标点剥离、模糊距离或模型改写。
-- [ ] 稳定 ID、标签、显式别名/物理名称和向量建议按固定优先级执行；高优先级唯一命中不被低优先级覆盖。
-- [ ] 唯一确定性命中返回 `matched`；多候选返回稳定排序的 `clarification_required`；未知返回 `not_found`。
-- [ ] 向量适配器为可选注入边界，只能返回非权威 `suggested`；未知候选、重复结果、非法分数和适配器失败按批准规则阻断或降级。
-- [ ] 匹配结果不被误称为权限已执行、指标已验证或数值事实已确认。
-- [ ] `npm run test --workspace=@alphaox/semantic-agent` 通过。
-- [ ] `npm run build --workspace=@alphaox/semantic-agent` 通过。
-- [ ] 根级 `npm run check` 通过，且无锁文件或外部依赖变更。
-- [ ] 对抗复核覆盖跨候选别名冲突、同 ID 跨类型冲突、历史/草稿排除、向量非权威和适配器失败。
+- [x] 候选目录只接收可用 Context Pack 和当前已发布 Binding；Pack 不可用或 Binding 引用断裂时返回 `blocked`，不生成部分目录。
+- [x] Binding、Term、Data Dictionary 和 Document 按批准的字段生成候选；定义、描述和文档全文不进入默认匹配输入。
+- [x] 稳定 ID、Unicode NFKC 文本、空白折叠和 Unicode 小写化规则确定且可重复；不引入标点剥离、模糊距离或模型改写。
+- [x] 稳定 ID、标签、显式别名/物理名称和向量建议按固定优先级执行；高优先级唯一命中不被低优先级覆盖。
+- [x] 唯一确定性命中返回 `matched`；多候选返回稳定排序的 `clarification_required`；未知返回 `not_found`。
+- [x] 向量适配器为可选注入边界，只能返回非权威 `suggested`；未知候选、重复结果、非法分数和适配器失败按批准规则阻断或降级。
+- [x] 匹配结果不被误称为权限已执行、指标已验证或数值事实已确认。
+- [x] `npm run test --workspace=@alphaox/semantic-agent` 通过：5 个测试文件、30 个测试。
+- [x] `npm run build --workspace=@alphaox/semantic-agent` 通过。
+- [x] 根级 `npm run check` 通过，且无锁文件或外部依赖变更。
+- [x] 对抗复核覆盖跨候选别名冲突、同 ID 跨类型冲突、历史/草稿排除、向量非权威、等价别名顺序和适配器失败。
 
 ### 9.6 Browser 验收
 
@@ -308,9 +309,9 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - 当前适配器仍是接口边界和本地 fixture；真实数据库/API/文件/知识库连接器、凭据托管、权限执行和连接健康度尚未实现或验收。
 - rowCount 不参与结构指纹；如果后续需要对行数 freshness 做决策，必须在独立数据质量契约中定义，不能把结构指纹当作行数据新鲜度证明。
 - Context Pack 导入/导出当前是进程内边界，尚未接入持久化版本库、签名校验或跨服务传输协议。
-- 当前 Binding 冲突规则仍仅在内存注册表中实现；阶段五只定义可选向量适配边界，不代表真实向量检索、飞书适配器和持久化存储已经实现。
-- 当前实现是路径二阶段一至四的可审查起点，阶段五实现尚未完成，不代表生产数据库迁移或生产 API 已完成。
-- 当前批准状态：人类已批准按本计划分阶段开发并确认阶段四设计、阶段五匹配方案；阶段一、二、三已通过前置集成门，阶段四已通过子分支和集成分支验收并合入 `codex/alphaox/path-02`，阶段五实现和验收待完成，仍需路径二最终 Decision Gate。
+- 当前 Binding 冲突规则仍仅在内存注册表中实现；阶段五只实现可选向量适配边界，不代表真实向量检索、飞书适配器和持久化存储已经实现。
+- 当前实现是路径二阶段一至五的可审查起点，不代表生产数据库迁移或生产 API 已完成。
+- 当前批准状态：人类已批准按本计划分阶段开发并确认阶段四设计、阶段五匹配方案；阶段一、二、三已通过前置集成门，阶段四已通过子分支和集成分支验收并合入 `codex/alphaox/path-02`，阶段五子分支实现和本地验收已完成，仍需合入 `codex/alphaox/path-02` 后进行路径二最终 Decision Gate。
 
 ## 11. 来源证据
 
@@ -325,4 +326,6 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - [阶段三 Context Pack 测试](../../../packages/semantic-agent/test/context-pack.test.ts)
 - [阶段四 Binding 实现](../../../packages/semantic-agent/src/binding.ts)
 - [阶段四 Binding 测试](../../../packages/semantic-agent/test/binding.test.ts)
+- [阶段五匹配实现](../../../packages/semantic-agent/src/matching.ts)
+- [阶段五匹配测试](../../../packages/semantic-agent/test/matching.test.ts)
 - [阶段一根级检查修复](../../../packages/ai/scripts/generate-models.ts)
