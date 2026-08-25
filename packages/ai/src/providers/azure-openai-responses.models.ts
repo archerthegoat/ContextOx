@@ -4,5 +4,48 @@
 import values from "./data/azure-openai-responses.json" with { type: "json" };
 import { flattenModelCatalog, type ModelCatalog } from "../model-catalog.ts";
 
-export const AZURE_OPENAI_RESPONSES_MODELS: ModelCatalog<typeof values, "azure-openai-responses"> =
-	flattenModelCatalog("azure-openai-responses", values);
+type AZURE_OPENAI_RESPONSES_MODELS_GROUPS = {
+	"azure-openai-responses": {
+		"gpt-4": object;
+		"gpt-4-turbo": object;
+		"gpt-4.1": object;
+		"gpt-4.1-mini": object;
+		"gpt-4.1-nano": object;
+		"gpt-4o": object;
+		"gpt-4o-2024-05-13": object;
+		"gpt-4o-2024-08-06": object;
+		"gpt-4o-2024-11-20": object;
+		"gpt-4o-mini": object;
+		"gpt-5": object;
+		"gpt-5-chat-latest": object;
+		"gpt-5-mini": object;
+		"gpt-5-nano": object;
+		"gpt-5-pro": object;
+		"gpt-5.1": object;
+		"gpt-5.2": object;
+		"gpt-5.2-chat-latest": object;
+		"gpt-5.2-pro": object;
+		"gpt-5.3-chat-latest": object;
+		"gpt-5.3-codex": object;
+		"gpt-5.3-codex-spark": object;
+		"gpt-5.4": object;
+		"gpt-5.4-mini": object;
+		"gpt-5.4-nano": object;
+		"gpt-5.4-pro": object;
+		"gpt-5.5": object;
+		"gpt-5.5-pro": object;
+		"gpt-5.6-luna": object;
+		"gpt-5.6-sol": object;
+		"gpt-5.6-terra": object;
+		"gpt-realtime-2.1": object;
+		"o1": object;
+		"o1-pro": object;
+		"o3": object;
+		"o3-mini": object;
+		"o3-pro": object;
+		"o4-mini": object;
+	};
+};
+
+export const AZURE_OPENAI_RESPONSES_MODELS: ModelCatalog<AZURE_OPENAI_RESPONSES_MODELS_GROUPS, "azure-openai-responses"> =
+	flattenModelCatalog("azure-openai-responses", values as AZURE_OPENAI_RESPONSES_MODELS_GROUPS);
