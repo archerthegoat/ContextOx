@@ -1,29 +1,31 @@
-<p align="center">
-  <a href="https://pi.dev">
-    <img alt="pi logo" src="https://pi.dev/logo-auto.svg" width="128">
-  </a>
-</p>
-<p align="center">
-  <a href="https://discord.com/invite/3cU7Bz4UPx"><img alt="Discord" src="https://img.shields.io/badge/discord-community-5865F2?style=flat-square&logo=discord&logoColor=white" /></a>
-  <a href="https://www.npmjs.com/package/@earendil-works/pi-coding-agent"><img alt="npm" src="https://img.shields.io/npm/v/@earendil-works/pi-coding-agent?style=flat-square" /></a>
-</p>
+# AlphaOx
 
-> New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
+AlphaOx 是一个独立维护的中文优先分析 Agent 仓库，面向公司内部多用户场景。
+它基于 Pi Agent 运行时进行二次开发，但不属于 Pi 官方项目，也不再处于 GitHub
+fork network 中。
 
-# Pi Agent Harness
+当前 AlphaOx 的产品实现集中在：
 
-This is the home of the Pi agent harness project including our self extensible coding agent.
+* **[@alphaox/semantic-agent](packages/semantic-agent)**：Analysis Context、受约束计划、确定性执行和证据内核
+* **`semantic-web`**：规划中的 Web 分析工作台，尚未实现
 
-* **[@earendil-works/pi-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
-* **[@earendil-works/pi-agent-core](packages/agent)**: Agent runtime with tool calling and state management
-* **[@earendil-works/pi-ai](packages/ai)**: Unified multi-provider LLM API (OpenAI, Anthropic, Google, …)
+AlphaOx 的当前开发路线、架构决策和验收证据见 [开发路径图.md](开发路径图.md) 与
+[AlphaOx 架构与验收报告](docs/alphaox/架构与验收报告.md)。
 
-To learn more about Pi:
+## Retained Pi runtime workspace
 
-* [Visit pi.dev](https://pi.dev), the project website with demos
-* [Read the documentation](https://pi.dev/docs/latest), but you can also ask the agent to explain itself
+本仓库保留 Pi 的运行时 workspace，用于复用和审查 Agent Core、模型适配、协议、
+服务端和终端 UI 能力。上游源码通过本地 `upstream` remote 保留为同步参考；任何
+上游同步都必须经过独立审查，不把 AlphaOx 业务规则下沉到 Pi 核心包。
 
-## All Packages
+* **[@earendil-works/pi-coding-agent](packages/coding-agent)**：交互式 coding agent CLI
+* **[@earendil-works/pi-agent-core](packages/agent)**：带工具调用和状态管理的 Agent runtime
+* **[@earendil-works/pi-ai](packages/ai)**：统一的多提供商 LLM API（OpenAI、Anthropic、Google 等）
+
+Pi 的原始项目文档和发布协议仍以 [earendil-works/pi](https://github.com/earendil-works/pi)
+为准；本仓库的 AlphaOx 产品边界以本仓库文档为准。
+
+## Retained Pi workspace packages
 
 | Package | Description |
 |---------|-------------|

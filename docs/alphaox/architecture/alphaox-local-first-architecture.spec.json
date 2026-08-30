@@ -1,0 +1,131 @@
+{
+  "layout": "graph",
+  "direction": "down",
+  "style": "paper",
+  "animation": "trace",
+  "density": "balanced",
+  "aspect_ratio": "landscape",
+  "motion_level": "subtle",
+  "signature": "@alphaox",
+  "title": {
+    "prefix": "AlphaOx",
+    "highlight": "本地优先 Data Agent",
+    "subtitle": "Path 04 · Runtime Host · 受控数据工具 · 可追踪执行"
+  },
+  "canvas": {
+    "fps": 20,
+    "frames": 96
+  },
+  "nodes": [
+    {
+      "id": "web",
+      "label": "本地 Web UI",
+      "body": "问题输入 / 结果阅读",
+      "icon": "globe",
+      "accent": "cyan"
+    },
+    {
+      "id": "service",
+      "label": "AlphaOx 本地服务",
+      "body": "HTTP JSON / SSE\n127.0.0.1 loopback",
+      "icon": "server",
+      "accent": "core_stroke"
+    },
+    {
+      "id": "session",
+      "label": "Owner / Workspace",
+      "body": "本地单用户上下文\n不信任浏览器身份",
+      "icon": "identity",
+      "accent": "purple"
+    },
+    {
+      "id": "host",
+      "label": "Runtime Host",
+      "body": "AlphaOx owns state\nPi adapter is internal",
+      "icon": "orchestrator",
+      "accent": "green"
+    },
+    {
+      "id": "model",
+      "label": "Model Egress",
+      "body": "explicit provider / model\nminimized context",
+      "icon": "model",
+      "accent": "amber"
+    },
+    {
+      "id": "context",
+      "label": "Context + Plan",
+      "body": "Snapshot / Binding\nAnalysis Plan / Query Plan",
+      "icon": "package",
+      "accent": "purple"
+    },
+    {
+      "id": "gate",
+      "label": "Policy Gate",
+      "body": "authorize / freshness\nbudget / read-only",
+      "icon": "guardrail",
+      "accent": "amber",
+      "kind": "decision"
+    },
+    {
+      "id": "tools",
+      "label": "受控数据工具",
+      "body": "registry only\nno arbitrary SQL / code",
+      "icon": "tool-call",
+      "accent": "green"
+    },
+    {
+      "id": "executor",
+      "label": "确定性执行器",
+      "body": "compiled plan\nlimits / cancel / retry",
+      "icon": "gear",
+      "accent": "amber"
+    },
+    {
+      "id": "source",
+      "label": "Data Source",
+      "body": "fixtures first\nconnector boundary",
+      "icon": "database",
+      "accent": "cyan"
+    },
+    {
+      "id": "evidence",
+      "label": "Evidence + Trace",
+      "body": "status / warnings\nas_of / source versions",
+      "icon": "audit",
+      "accent": "purple"
+    },
+    {
+      "id": "state",
+      "label": "Local State",
+      "body": "SQLite control plane\nruns / reports / audit",
+      "icon": "db",
+      "accent": "cyan"
+    },
+    {
+      "id": "result",
+      "label": "Result / Report",
+      "body": "complete / partial / blocked\nclarification_required",
+      "icon": "file",
+      "accent": "pink",
+      "kind": "terminal"
+    }
+  ],
+  "edges": [
+    {"from": "web", "to": "service", "label": "same-origin"},
+    {"from": "service", "to": "session", "label": "inject"},
+    {"from": "service", "to": "host", "label": "start run"},
+    {"from": "host", "to": "model", "label": "reason / stream"},
+    {"from": "model", "to": "context", "label": "structured plan"},
+    {"from": "context", "to": "gate", "label": "preflight"},
+    {"from": "gate", "to": "tools", "label": "allowed"},
+    {"from": "tools", "to": "executor", "label": "validated call"},
+    {"from": "executor", "to": "source", "label": "read-only"},
+    {"from": "source", "to": "evidence", "label": "bounded result"},
+    {"from": "evidence", "to": "state", "label": "persist"},
+    {"from": "state", "to": "result", "label": "serve snapshot"},
+    {"from": "result", "to": "web", "label": "SSE / JSON"},
+    {"from": "gate", "to": "context", "kind": "loop", "label": "clarify / replan"},
+    {"from": "executor", "to": "host", "kind": "loop", "label": "retry / cancel"}
+  ]
+}

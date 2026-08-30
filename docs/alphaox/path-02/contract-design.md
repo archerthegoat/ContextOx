@@ -299,15 +299,18 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - [x] 根级 `npm run check` 通过，且无锁文件或外部依赖变更。
 - [x] 对抗复核覆盖跨候选别名冲突、同 ID 跨类型冲突、历史/草稿排除、向量非权威、等价别名顺序和适配器失败。
 
-### 9.6 路径二最终本地集成门候选
+### 9.6 路径二最终集成与独立仓库回读
 
-- [x] 当前审计分支为 `codex/alphaox/path-02`，HEAD 为 `fec67cc43`；审计时工作区干净。
+- [x] 当前审计分支为 `codex/alphaox/path-02`，HEAD 为 `718ddcf52`；审计时工作区干净。
 - [x] `npm run test --workspace=@alphaox/semantic-agent` 通过：5 个测试文件、30 个测试。
 - [x] 根级 `npm run check` 通过：Biome 检查 1106 个文件且未产生格式修复；依赖固定、相对导入、coding-agent shrinkwrap、install lock、TypeScript 检查和 Browser smoke 检查均通过。
 - [x] `git diff --check main...HEAD` 通过。
 - [x] Path2 差异只包含路径二契约文档、`semantic-agent` 包、根级 workspace lockfile 记录和已批准的 `packages/ai` 模型目录类型修复；未发现路径二目录内的 Pi 产品包导入或 AlphaOx 业务逻辑下沉到 Pi Core。
 - [x] 工作区扫描未发现旧阶段带 ` 2` 后缀的未跟踪或已跟踪副本。
-- [ ] 人类最终 Decision Gate 尚未完成；在该门通过前，不把路径二标记为已合入 `main`，也不执行 GitHub fork 脱离。
+- [x] 人类最终 Decision Gate 已通过：允许将现有 `path-02` 按新分支规则集成到 `main`；集成检查通过后允许执行 GitHub `Leave fork network`，不删除、不重建仓库。
+- [x] `codex/alphaox/path-02` 已合入 `codex/alphaox/pass-02`，再合入 `main`；最终 `main` 合并提交为 `265ac26d5`。
+- [x] `main` 已推送并与 `origin/main` 对齐，当前提交为 `265ac26d520c83212d1b2c82e3175a266415143e`。
+- [x] GitHub 仓库回读为 `fork=false`、`parent=null`、`source=null`；仓库未删除或重建。
 
 ### 9.7 Browser 验收
 
@@ -321,7 +324,7 @@ Connector 的能力字段、Binding 的审核状态和 Context Pack 的版本字
 - Context Pack 导入/导出当前是进程内边界，尚未接入持久化版本库、签名校验或跨服务传输协议。
 - 当前 Binding 冲突规则仍仅在内存注册表中实现；阶段五只实现可选向量适配边界，不代表真实向量检索、飞书适配器和持久化存储已经实现。
 - 当前实现是路径二阶段一至五的可审查起点，不代表生产数据库迁移或生产 API 已完成。
-- 当前批准状态：人类已批准按本计划分阶段开发并确认阶段四设计、阶段五匹配方案；阶段一至五均已通过子分支及集成分支验收并合入 `codex/alphaox/path-02`，本轮最终本地集成门通过，仍需人类最终 Decision Gate。路线图未修改，也没有提出自动修改提案。
+- 当前批准状态：人类已批准按本计划分阶段开发并确认阶段四设计、阶段五匹配方案；阶段一至五均已通过子分支及集成分支验收，并按新分支规则合入 `main`。GitHub fork network 已脱离，路线图尚未修改；本报告只记录已完成的路径二证据，不自动改变后续路径范围。
 
 ## 11. 来源证据
 
