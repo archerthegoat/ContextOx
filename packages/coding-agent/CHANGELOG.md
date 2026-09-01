@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added optional `PI_APP_NAME` and `PI_APP_TITLE` identity overrides for applications embedding the Pi TUI; the default Pi identity is unchanged.
+
 ## [0.84.3] - 2026-08-24
 
 ### New Features

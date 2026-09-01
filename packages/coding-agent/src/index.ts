@@ -4,12 +4,16 @@ export { type Args, parseArgs } from "./cli/args.ts";
 
 // Config paths
 export {
+	APP_NAME,
+	APP_TITLE,
+	type AppIdentity,
 	CONFIG_DIR_NAME,
 	getAgentDir,
 	getDocsPath,
 	getExamplesPath,
 	getPackageDir,
 	getReadmePath,
+	resolveAppIdentity,
 	VERSION,
 } from "./config.ts";
 export {

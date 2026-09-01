@@ -1,0 +1,20 @@
+{
+  "material_status": "synthetic",
+  "customers": [
+    { "customer_id": "customer-101", "name": "Example A" },
+    { "customer_id": "customer-202", "name": "Example B" },
+    { "customer_id": "customer-303", "name": "Example C" }
+  ],
+  "orders": [
+    { "order_id": "order-101", "customer_id": "customer-101", "status": "completed" },
+    { "order_id": "order-202", "customer_id": "customer-202", "status": "refunded" }
+  ],
+  "payments": [
+    { "payment_id": "payment-101-a", "order_id": "order-101", "status": "captured", "amount": 60 },
+    { "payment_id": "payment-101-b", "order_id": "order-101", "status": "captured", "amount": 40 },
+    { "payment_id": "payment-202-a", "order_id": "order-202", "status": "refunded", "amount": 80 }
+  ],
+  "known_unknowns": [
+    "Future purchase probability has not been validated."
+  ]
+}

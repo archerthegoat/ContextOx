@@ -495,8 +495,35 @@ try {
 
 const piConfigName: string | undefined = pkg.piConfig?.name;
 export const PACKAGE_NAME: string = pkg.name || "@earendil-works/pi-coding-agent";
-export const APP_NAME: string = piConfigName || "pi";
-export const APP_TITLE: string = piConfigName ? APP_NAME : "π";
+
+export interface AppIdentity {
+	name: string;
+	title: string;
+}
+
+function nonEmptyIdentityValue(value: string | undefined): string | undefined {
+	const normalized = value?.trim();
+	return normalized ? normalized : undefined;
+}
+
+/** Resolve the optional process-level identity used by apps embedding the Pi TUI. */
+export function resolveAppIdentity(
+	configuredName: string | undefined,
+	overrides: { name?: string; title?: string } = {},
+): AppIdentity {
+	const configured = nonEmptyIdentityValue(configuredName);
+	const nameOverride = nonEmptyIdentityValue(overrides.name);
+	const name = nameOverride ?? configured ?? "pi";
+	const title = nonEmptyIdentityValue(overrides.title) ?? (nameOverride || configured ? name : "π");
+	return { name, title };
+}
+
+const appIdentity = resolveAppIdentity(piConfigName, {
+	name: process.env.PI_APP_NAME,
+	title: process.env.PI_APP_TITLE,
+});
+export const APP_NAME: string = appIdentity.name;
+export const APP_TITLE: string = appIdentity.title;
 export const CONFIG_DIR_NAME: string = pkg.piConfig?.configDir || ".pi";
 export const VERSION: string = pkg.version || "0.0.0";
 

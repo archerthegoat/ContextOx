@@ -29,6 +29,7 @@ packages/ai/src/providers/.model-generation-*/
 coverage/
 .nyc_output/
 .pi_config/
+.contextox/
 tui-debug.log
 compaction-results/
 .opencode/
