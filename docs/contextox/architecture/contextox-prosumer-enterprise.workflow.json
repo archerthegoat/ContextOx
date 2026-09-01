@@ -1,0 +1,178 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "ContextOx：从 Prosumer 到企业控制面的升级路径",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "output": "docs/contextox/architecture/contextox-prosumer-enterprise.html"
+  },
+  "lanes": [
+    { "id": "initiator", "label": "专业人员入口" },
+    { "id": "team", "label": "单团队定义闭环" },
+    { "id": "enterprise", "label": "企业升级", "variant": "exception" },
+    { "id": "outcome", "label": "审计与结果" }
+  ],
+  "phases": [
+    { "id": "start", "label": "发起", "fromCol": 0, "toCol": 0 },
+    { "id": "define", "label": "形成定义", "fromCol": 1, "toCol": 3, "variant": "emphasis" },
+    { "id": "govern", "label": "企业控制", "fromCol": 4, "toCol": 4, "variant": "security" }
+  ],
+  "groups": [
+    { "id": "team_loop", "label": "首版必须跑通", "lane": "team", "fromCol": 1, "toCol": 3, "variant": "emphasis" },
+    { "id": "enterprise_gate", "label": "有证据后才进入", "lane": "enterprise", "fromCol": 3, "toCol": 4, "variant": "security" },
+    { "id": "observation", "label": "不自动宣称因果", "lane": "outcome", "fromCol": 4, "toCol": 4, "variant": "dashed" }
+  ],
+  "mainPath": [
+    "operator",
+    "case_evidence",
+    "microtasks",
+    "team_contract",
+    "enterprise_gate",
+    "governed_release",
+    "audit_outcome"
+  ],
+  "nodes": [
+    {
+      "id": "operator",
+      "lane": "initiator",
+      "col": 0,
+      "type": "frontend",
+      "label": "专业人员发起",
+      "sublabel": "一个真实定义问题",
+      "tag": "自助入口",
+      "width": 140
+    },
+    {
+      "id": "case_evidence",
+      "lane": "team",
+      "col": 1,
+      "type": "backend",
+      "label": "Case + 证据",
+      "sublabel": "目标、旧版、冲突、Owner",
+      "width": 140
+    },
+    {
+      "id": "microtasks",
+      "lane": "team",
+      "col": 2,
+      "type": "messagebus",
+      "label": "人类微任务",
+      "sublabel": "补证、异议、确认、批准",
+      "width": 140
+    },
+    {
+      "id": "team_contract",
+      "lane": "team",
+      "col": 3,
+      "type": "backend",
+      "label": "团队契约",
+      "sublabel": "版本、生效、导出；不写生产",
+      "tag": "首版终点",
+      "width": 140
+    },
+    {
+      "id": "enterprise_gate",
+      "lane": "enterprise",
+      "col": 3,
+      "type": "security",
+      "label": "企业升级门",
+      "sublabel": "复用、预算、Owner 均成立",
+      "width": 140
+    },
+    {
+      "id": "governed_release",
+      "lane": "enterprise",
+      "col": 4,
+      "type": "security",
+      "label": "受控发布",
+      "sublabel": "SSO、策略、审批、readback",
+      "width": 140
+    },
+    {
+      "id": "audit_outcome",
+      "lane": "outcome",
+      "col": 4,
+      "type": "database",
+      "label": "审计与结果",
+      "sublabel": "采用、异常、业务信号",
+      "width": 140
+    }
+  ],
+  "edges": [
+    {
+      "id": "operator_to_case",
+      "from": "operator",
+      "to": "case_evidence",
+      "label": "建立范围与基线",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "case_to_tasks",
+      "from": "case_evidence",
+      "to": "microtasks",
+      "label": "把缺口交给对的人",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "tasks_to_contract",
+      "from": "microtasks",
+      "to": "team_contract",
+      "label": "人工决定后形成版本",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "contract_to_gate",
+      "from": "team_contract",
+      "to": "enterprise_gate",
+      "label": "第二案例证明复用",
+      "variant": "security",
+      "role": "main"
+    },
+    {
+      "id": "gate_to_release",
+      "from": "enterprise_gate",
+      "to": "governed_release",
+      "label": "明确预算与控制要求",
+      "variant": "security",
+      "role": "main"
+    },
+    {
+      "id": "release_to_outcome",
+      "from": "governed_release",
+      "to": "audit_outcome",
+      "label": "读回并观察",
+      "variant": "security",
+      "role": "main"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "首版闭环",
+      "items": [
+        "一个专业人员发起，邀请 2–5 人完成真实案例",
+        "形成可导出的团队契约，不直接写生产"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "企业升级门",
+      "items": [
+        "至少第二案例显示复用增加、FDE 工时下降",
+        "客户明确预算、Owner、身份与发布责任"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "执行原则",
+      "items": [
+        "Agent 提议；有权人决定",
+        "发布以权限、幂等、readback 和回滚为准"
+      ]
+    }
+  ]
+}

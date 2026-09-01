@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "数契：Mission 自主推进与人类裁决（候选）",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "output": "docs/contextox/architecture/contextox-mission-loop.html"
+  },
+  "lanes": [
+    { "id": "human_authority", "label": "人类目标与裁决" },
+    { "id": "agent_progress", "label": "Agent 自主推进" },
+    { "id": "domain_control", "label": "确定性控制与契约", "variant": "exception" },
+    { "id": "durable_continuity", "label": "持久恢复与观察" }
+  ],
+  "phases": [
+    { "id": "mission_intake", "label": "目标与上下文", "fromCol": 0, "toCol": 1 },
+    { "id": "autonomous_progress", "label": "自主选择与受控行动", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "decision_and_feedback", "label": "裁决与持续演进", "fromCol": 4, "toCol": 5, "variant": "security" }
+  ],
+  "mainPath": ["business_goal", "mission_state", "context_refresh", "next_action", "execution_guard", "investigate_coordinate", "human_decision", "approved_contract", "outcome_observation"],
+  "nodes": [
+    { "id": "business_goal", "lane": "human_authority", "col": 0, "type": "frontend", "label": "给出模糊目标", "sublabel": "范围、权限与成功条件", "width": 150 },
+    { "id": "mission_state", "lane": "agent_progress", "col": 0, "type": "database", "label": "建立 Mission", "sublabel": "关联 Case，持久保存状态", "width": 150 },
+    { "id": "context_refresh", "lane": "agent_progress", "col": 1, "type": "backend", "label": "组装业务上下文", "sublabel": "证据、责任、冲突与缺口", "width": 150 },
+    { "id": "next_action", "lane": "agent_progress", "col": 2, "type": "backend", "label": "Agent 选择下一步", "sublabel": "查证、补证、等待或重规划", "width": 150 },
+    { "id": "execution_guard", "lane": "domain_control", "col": 2, "type": "security", "label": "策略与领域校验", "sublabel": "权限、预算、版本与幂等", "tag": "拒绝即停止", "width": 150 },
+    { "id": "investigate_coordinate", "lane": "agent_progress", "col": 3, "type": "backend", "label": "查证与推进补证", "sublabel": "受控工具、任务、影响说明", "width": 150 },
+    { "id": "human_decision", "lane": "human_authority", "col": 4, "type": "security", "label": "有权人业务裁决", "sublabel": "处理争议、批准定义版本", "width": 150 },
+    { "id": "approved_contract", "lane": "domain_control", "col": 4, "type": "database", "label": "形成 Contract v2", "sublabel": "证据、差异与发布提案", "tag": "不等于已发布", "width": 150 },
+    { "id": "durable_checkpoint", "lane": "durable_continuity", "col": 3, "type": "messagebus", "label": "持久检查点与等待", "sublabel": "结果、回复、定时与变更", "width": 150 },
+    { "id": "outcome_observation", "lane": "durable_continuity", "col": 5, "type": "backend", "label": "观察与重开", "sublabel": "仅订阅获授权的结果信号", "width": 150 }
+  ],
+  "edges": [
+    { "id": "goal_to_mission", "from": "business_goal", "to": "mission_state", "label": "目标与授权", "variant": "emphasis", "role": "main" },
+    { "id": "mission_to_context", "from": "mission_state", "to": "context_refresh", "label": "读取当前状态", "variant": "emphasis", "role": "main" },
+    { "id": "context_to_action", "from": "context_refresh", "to": "next_action", "label": "有来源的上下文", "variant": "emphasis", "role": "main" },
+    { "id": "action_to_guard", "from": "next_action", "to": "execution_guard", "label": "下一步候选", "variant": "security", "role": "main" },
+    { "id": "guard_to_investigation", "from": "execution_guard", "to": "investigate_coordinate", "label": "允许执行", "variant": "emphasis", "role": "main" },
+    { "id": "ready_for_human", "from": "investigate_coordinate", "to": "human_decision", "label": "方案就绪时", "variant": "security", "role": "main" },
+    { "id": "decision_to_contract", "from": "human_decision", "to": "approved_contract", "label": "批准绑定版本", "variant": "security", "role": "main", "route": "outside-right" },
+    { "id": "contract_to_observation", "from": "approved_contract", "to": "outcome_observation", "label": "授权观察", "variant": "emphasis", "role": "main" },
+    { "id": "persist_or_wait", "from": "investigate_coordinate", "to": "durable_checkpoint", "label": "结果或等待依赖", "variant": "dashed", "role": "async" },
+    { "id": "resume_with_fresh_context", "from": "durable_checkpoint", "to": "context_refresh", "label": "事件到达，重检上下文", "variant": "dashed", "role": "return" },
+    { "id": "observation_reopens", "from": "outcome_observation", "to": "durable_checkpoint", "label": "范围内变化触发复审", "variant": "dashed", "role": "return" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Agent 推进", "items": ["代表性执行追踪，不是要求用户预画的固定 SOP", "Agent 提出下一步；领域规则与策略决定是否可执行"] },
+    { "dot": "amber", "title": "中断可恢复", "items": ["保存等待原因、期限与事件，重启不丢任务", "恢复重检身份、版本与新鲜度；拒绝不得伪装完成"] },
+    { "dot": "rose", "title": "演示边界", "items": ["高潜客户：新契约、影响说明与发布提案", "观察 / 重开使用标注 fixture；生产写入未授权"] }
+  ]
+}

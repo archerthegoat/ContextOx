@@ -1,0 +1,152 @@
+{
+  "fixture_manifest_version": "0.1",
+  "package_ref": "high-potential-customer-v0.1",
+  "product": "ContextOx/数契",
+  "business_scope": "demo-commerce/e1",
+  "material_purpose": "self-authored static validation package for creating an existing-customer operational-priority norm",
+  "source_type": "self_authored_synthetic",
+  "generation": {
+    "method": "explicit_values_with_deterministic_expansion; no random generator",
+    "authored_at_utc": "2026-08-31T15:18:28Z",
+    "packaged_at_utc": "2026-08-31T16:03:05.799Z",
+    "business_time_origin": "synthetic_test_clock; not real ingestion history",
+    "third_party_data_rows_used": 0,
+    "real_people_or_customer_identifiers_used": 0
+  },
+  "snapshots": {
+    "main": {
+      "ref": "snap-101",
+      "source_snapshot_version": "r1",
+      "customers": 12,
+      "customer_links": 18,
+      "orders": 18,
+      "items": 24,
+      "payments": 20,
+      "fulfillment_events": 24
+    },
+    "heldout": {
+      "ref": "snap-202",
+      "source_snapshot_version": "r1",
+      "customers": 4,
+      "customer_links": 6,
+      "orders": 6,
+      "items": 8,
+      "payments": 7,
+      "fulfillment_events": 8
+    },
+    "as_of": "2026-07-01T00:00:00Z",
+    "coverage_window": {
+      "from_inclusive": "2026-04-01T00:00:00Z",
+      "to_exclusive": "2026-07-01T00:00:00Z"
+    },
+    "timezone": "UTC",
+    "currency": "CNY",
+    "amount_unit": "integer_minor_unit_1_100"
+  },
+  "exposure_and_access": {
+    "declared_initial_agent_paths": [
+      "input/facts.json",
+      "input/context.md"
+    ],
+    "evaluator_only_paths": [
+      "README.md",
+      "manifest.json",
+      "evaluation/heldout.json",
+      "evaluation/cases.json",
+      "evaluation/quality-report.md"
+    ],
+    "heldout_currently_exposed_to": [
+      "fixture_author",
+      "offline_material_checker",
+      "independent_read_only_reviewer"
+    ],
+    "heldout_future_use": "only an independent controlled consumer after protocol, rule/mapping, snapshot, subject and current authorization are fixed",
+    "runtime_allowlist_enforcement": "NOT_IMPLEMENTED",
+    "directory_separation_is_permission_proof": false
+  },
+  "integrity": {
+    "algorithm": "SHA256",
+    "byte_scope": "raw UTF-8 bytes",
+    "coverage": "the six listed non-manifest files",
+    "manifest_self_hash": "excluded_to_avoid_self_reference",
+    "final_manifest_hash_receipt": "architecture report §13.7"
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 6785,
+      "sha256": "85eb953a7ded934c9c372d2bcde70e92e6be47ad974a7a8d74be7e96de289ad9",
+      "role": "human_entry_and_usage_boundary",
+      "visibility": "evaluator_only"
+    },
+    {
+      "path": "input/facts.json",
+      "bytes": 31293,
+      "sha256": "36b93ee94092b86ac50f1aee36f1aa999589e596b46b8e510b7d6398cb64c0d0",
+      "role": "initial_agent_fact_input_after_future_runtime_authorization",
+      "visibility": "conditional_initial_input"
+    },
+    {
+      "path": "input/context.md",
+      "bytes": 9245,
+      "sha256": "ed6f5f601b6b39d13b31c2279a90424191e2745d7b70a454cb7edecf4331aea4",
+      "role": "initial_agent_context_input_after_future_runtime_authorization",
+      "visibility": "conditional_initial_input"
+    },
+    {
+      "path": "evaluation/heldout.json",
+      "bytes": 11055,
+      "sha256": "7c8383acce2d7a1d402aa59272d2ad8d4d0afafc0cc612a5a856b710dac053e8",
+      "role": "evaluator_only_independent_consumer_facts",
+      "visibility": "evaluator_only"
+    },
+    {
+      "path": "evaluation/cases.json",
+      "bytes": 92576,
+      "sha256": "832afe599ac41f001eee8f4066c05427564aa975946fe54a240bca1f07d2b18a",
+      "role": "evaluator_only_material_and_future_behavior_expectations",
+      "visibility": "evaluator_only"
+    },
+    {
+      "path": "evaluation/quality-report.md",
+      "bytes": 41353,
+      "sha256": "2deb93ac2b20797b5dabbda19f03170958b0f395904c5a3308dfee4efbe94596",
+      "role": "evaluator_only_actual_material_check_receipt",
+      "visibility": "evaluator_only"
+    }
+  ],
+  "license_and_distribution": {
+    "repository_license_label": "MIT",
+    "license_file": "../../../../LICENSE",
+    "license_file_modified_in_this_scope": false,
+    "new_license_or_third_party_distribution_grant": "NONE"
+  },
+  "review": {
+    "production_detail_review": "PASS",
+    "production_detail_reviewed_brief_sha256": "24559beca732c9b34f4193305086f09523c4e539761d2fdae645397202294fdb",
+    "actual_material_review_receipt": "architecture report §13.7"
+  },
+  "status": {
+    "static_material_created": "CREATED",
+    "static_material_check": "PASS",
+    "material_assertions": 2606,
+    "product_execution": "NOT_RUN",
+    "runtime_visibility_enforcement": "NOT_IMPLEMENTED",
+    "real_model": "NOT_RUN",
+    "database_or_service": "NOT_RUN",
+    "human_product_acceptance": "PENDING",
+    "business_effect_or_customer_value": "NOT_VERIFIED"
+  },
+  "ownership": {
+    "current_static_material_owner": "primary Agent for this task",
+    "future_runtime_owner": "UNASSIGNED",
+    "future_business_owner": "UNASSIGNED"
+  },
+  "boundaries": [
+    "JSON is a package-local material format, not a frozen public schema or database contract.",
+    "Hashes identify the reviewed bytes; they do not approve product behavior, policy enforcement, IAM, model quality or business rules.",
+    "Authored fixture values are replaceable test coverage choices, not individually approved organization facts or thresholds.",
+    "No Olist rows, product code, runtime, dependency, database, external side effect or real product model is included."
+  ]
+}
+

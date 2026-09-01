@@ -1,0 +1,226 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "ContextOx：三种市场执行模式",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "output": "docs/contextox/architecture/contextox-market-models.html"
+  },
+  "lanes": [
+    { "id": "consumer", "label": "纯 C 端" },
+    { "id": "recommended", "label": "推荐：Prosumer → 团队" },
+    { "id": "enterprise", "label": "全企业 B 端", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "trigger", "label": "触发", "fromCol": 0, "toCol": 0 },
+    { "id": "entry", "label": "进入", "fromCol": 1, "toCol": 1 },
+    { "id": "execute", "label": "执行", "fromCol": 2, "toCol": 2, "variant": "emphasis" },
+    { "id": "outcome", "label": "结果", "fromCol": 3, "toCol": 3, "variant": "dashed" }
+  ],
+  "groups": [
+    { "id": "consumer_model", "label": "低实施；高获客与留存风险", "lane": "consumer", "fromCol": 1, "toCol": 3, "variant": "dashed" },
+    { "id": "recommended_model", "label": "首个验证 seam", "lane": "recommended", "fromCol": 0, "toCol": 3, "variant": "emphasis" },
+    { "id": "enterprise_model", "label": "高价值；高权限与集成成本", "lane": "enterprise", "fromCol": 1, "toCol": 3, "variant": "security" }
+  ],
+  "mainPath": [
+    "shared_trigger",
+    "prosumer",
+    "team_case",
+    "team_contract"
+  ],
+  "nodes": [
+    {
+      "id": "consumer_user",
+      "lane": "consumer",
+      "col": 1,
+      "type": "external",
+      "label": "个人用户",
+      "sublabel": "自助发起",
+      "width": 140
+    },
+    {
+      "id": "consumer_tools",
+      "lane": "consumer",
+      "col": 2,
+      "type": "cloud",
+      "label": "预配置工具",
+      "sublabel": "API、行为流、个人数据",
+      "width": 140
+    },
+    {
+      "id": "consumer_result",
+      "lane": "consumer",
+      "col": 3,
+      "type": "backend",
+      "label": "个人结果",
+      "sublabel": "执行快；共享治理弱",
+      "width": 140
+    },
+    {
+      "id": "shared_trigger",
+      "lane": "recommended",
+      "col": 0,
+      "type": "external",
+      "label": "共享任务触发",
+      "sublabel": "定义影响多人或系统",
+      "width": 140
+    },
+    {
+      "id": "prosumer",
+      "lane": "recommended",
+      "col": 1,
+      "type": "frontend",
+      "label": "专业人员",
+      "sublabel": "数据、运营、FDE",
+      "tag": "推荐入口",
+      "width": 140
+    },
+    {
+      "id": "team_case",
+      "lane": "recommended",
+      "col": 2,
+      "type": "backend",
+      "label": "Definition Case",
+      "sublabel": "证据、缺口、人类微任务",
+      "width": 140
+    },
+    {
+      "id": "team_contract",
+      "lane": "recommended",
+      "col": 3,
+      "type": "backend",
+      "label": "团队契约",
+      "sublabel": "版本、生效、导出提案",
+      "tag": "先不写生产",
+      "width": 140
+    },
+    {
+      "id": "enterprise_sponsor",
+      "lane": "enterprise",
+      "col": 1,
+      "type": "external",
+      "label": "企业 Sponsor",
+      "sublabel": "预算、责任、采购",
+      "width": 140
+    },
+    {
+      "id": "enterprise_platform",
+      "lane": "enterprise",
+      "col": 2,
+      "type": "security",
+      "label": "企业平台接入",
+      "sublabel": "SSO、目录、策略、集成",
+      "width": 140
+    },
+    {
+      "id": "enterprise_result",
+      "lane": "enterprise",
+      "col": 3,
+      "type": "database",
+      "label": "治理结果",
+      "sublabel": "发布、审计、观察",
+      "width": 140
+    }
+  ],
+  "edges": [
+    {
+      "id": "trigger_to_prosumer",
+      "from": "shared_trigger",
+      "to": "prosumer",
+      "label": "一人即可启动",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "prosumer_to_case",
+      "from": "prosumer",
+      "to": "team_case",
+      "label": "邀请小团队协作",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "case_to_contract",
+      "from": "team_case",
+      "to": "team_contract",
+      "label": "人工决定后成契约",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "trigger_to_consumer",
+      "from": "shared_trigger",
+      "to": "consumer_user",
+      "label": "仅个人需求",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "consumer_to_tools",
+      "from": "consumer_user",
+      "to": "consumer_tools",
+      "label": "调用获准工具",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "tools_to_consumer_result",
+      "from": "consumer_tools",
+      "to": "consumer_result",
+      "label": "确定性流程执行",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "trigger_to_enterprise",
+      "from": "shared_trigger",
+      "to": "enterprise_sponsor",
+      "label": "全企业项目",
+      "variant": "security",
+      "role": "branch"
+    },
+    {
+      "id": "sponsor_to_platform",
+      "from": "enterprise_sponsor",
+      "to": "enterprise_platform",
+      "label": "采购与实施",
+      "variant": "security",
+      "role": "branch"
+    },
+    {
+      "id": "platform_to_enterprise_result",
+      "from": "enterprise_platform",
+      "to": "enterprise_result",
+      "label": "受控发布并审计",
+      "variant": "security",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "当前推荐",
+      "items": [
+        "B 端商业模式，C 端化体验",
+        "专业人员自助发起，再邀请团队协作"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "纯 C 端边界",
+      "items": [
+        "Zion 类平台能封装工具执行",
+        "但不能证明跨角色定义治理存在个人付费需求"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "企业 B 端边界",
+      "items": [
+        "价值更完整，但首版不承担全企业实施",
+        "先用真实团队案例证明复用与预算"
+      ]
+    }
+  ]
+}

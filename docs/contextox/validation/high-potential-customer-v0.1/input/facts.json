@@ -1,0 +1,1052 @@
+{
+  "metadata": {
+    "fixture_format_version": "0.1",
+    "snapshot_ref": "snap-101",
+    "source_type": "self_authored_synthetic",
+    "generation_method": "explicit_values_with_deterministic_expansion; no_random_generator",
+    "authored_at": "2026-08-31T15:18:28Z",
+    "time_origin": "synthetic_test_clock; not_real_ingestion_history",
+    "source_snapshot_version": "r1",
+    "business_scope": "demo-commerce/e1",
+    "as_of": "2026-07-01T00:00:00Z",
+    "coverage_window": {
+      "from_inclusive": "2026-04-01T00:00:00Z",
+      "to_exclusive": "2026-07-01T00:00:00Z"
+    },
+    "timezone": "UTC",
+    "currency": "CNY",
+    "amount_unit": "integer_minor_unit_1_100"
+  },
+  "customer_links": [
+    {
+      "order_customer_ref": "oc-101",
+      "customer_ref": "cus-101",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-102",
+      "customer_ref": "cus-102",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-103",
+      "customer_ref": "cus-103",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-104",
+      "customer_ref": "cus-104",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-105",
+      "customer_ref": "cus-105",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-106",
+      "customer_ref": "cus-106",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-107",
+      "customer_ref": "cus-101",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-108",
+      "customer_ref": "cus-102",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-109",
+      "customer_ref": "cus-107",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-110",
+      "customer_ref": "cus-103",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-111",
+      "customer_ref": "cus-104",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-112",
+      "customer_ref": "cus-105",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-113",
+      "customer_ref": "cus-101",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-114",
+      "customer_ref": "cus-108",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-115",
+      "customer_ref": "cus-109",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-116",
+      "customer_ref": "cus-110",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-117",
+      "customer_ref": "cus-111",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    },
+    {
+      "order_customer_ref": "oc-118",
+      "customer_ref": "cus-112",
+      "mapping_basis_ref": "ctx-map-r1",
+      "effective_from": "2026-03-01T00:00:00Z",
+      "effective_to": null,
+      "source_ref": "src-customers",
+      "source_version": "r1",
+      "available_at": "2026-03-02T00:00:00Z"
+    }
+  ],
+  "orders": [
+    {
+      "order_ref": "ord-101",
+      "order_customer_ref": "oc-101",
+      "purchased_at": "2026-04-02T10:00:00Z",
+      "status_at_snapshot": "delivered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-04-04T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-102",
+      "order_customer_ref": "oc-102",
+      "purchased_at": "2026-04-05T09:00:00Z",
+      "status_at_snapshot": "delivered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-04-07T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-103",
+      "order_customer_ref": "oc-103",
+      "purchased_at": "2026-04-10T13:00:00Z",
+      "status_at_snapshot": "delivered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-04-12T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-104",
+      "order_customer_ref": "oc-104",
+      "purchased_at": "2026-04-18T14:00:00Z",
+      "status_at_snapshot": "delivered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-04-20T15:00:00Z"
+    },
+    {
+      "order_ref": "ord-105",
+      "order_customer_ref": "oc-105",
+      "purchased_at": "2026-04-25T08:00:00Z",
+      "status_at_snapshot": "delivered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-04-27T09:00:00Z"
+    },
+    {
+      "order_ref": "ord-106",
+      "order_customer_ref": "oc-106",
+      "purchased_at": "2026-05-02T11:00:00Z",
+      "status_at_snapshot": "delivered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-05-04T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-107",
+      "order_customer_ref": "oc-107",
+      "purchased_at": "2026-05-08T10:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-05-08T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-108",
+      "order_customer_ref": "oc-108",
+      "purchased_at": "2026-05-13T16:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-05-13T18:00:00Z"
+    },
+    {
+      "order_ref": "ord-109",
+      "order_customer_ref": "oc-109",
+      "purchased_at": "2026-05-20T12:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-05-20T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-110",
+      "order_customer_ref": "oc-110",
+      "purchased_at": "2026-05-24T09:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-05-24T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-111",
+      "order_customer_ref": "oc-111",
+      "purchased_at": "2026-06-01T14:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-01T16:00:00Z"
+    },
+    {
+      "order_ref": "ord-112",
+      "order_customer_ref": "oc-112",
+      "purchased_at": "2026-06-05T08:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-05T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-113",
+      "order_customer_ref": "oc-113",
+      "purchased_at": "2026-06-10T11:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-10T13:00:00Z"
+    },
+    {
+      "order_ref": "ord-114",
+      "order_customer_ref": "oc-114",
+      "purchased_at": "2026-06-14T15:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-14T17:00:00Z"
+    },
+    {
+      "order_ref": "ord-115",
+      "order_customer_ref": "oc-115",
+      "purchased_at": "2026-06-18T09:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-18T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-116",
+      "order_customer_ref": "oc-116",
+      "purchased_at": "2026-06-22T12:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-22T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-117",
+      "order_customer_ref": "oc-117",
+      "purchased_at": "2026-06-27T10:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-27T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-118",
+      "order_customer_ref": "oc-118",
+      "purchased_at": "2026-06-29T16:00:00Z",
+      "status_at_snapshot": "registered",
+      "source_ref": "src-orders",
+      "source_version": "r1",
+      "available_at": "2026-06-29T18:00:00Z"
+    }
+  ],
+  "items": [
+    {
+      "order_ref": "ord-101",
+      "item_ref": "line-101-1",
+      "goods_amount_minor": 10000,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-02T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-101",
+      "item_ref": "line-101-2",
+      "goods_amount_minor": 5000,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-02T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-102",
+      "item_ref": "line-102-1",
+      "goods_amount_minor": 4200,
+      "freight_amount_minor": 500,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-05T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-103",
+      "item_ref": "line-103-1",
+      "goods_amount_minor": 6000,
+      "freight_amount_minor": 300,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-10T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-103",
+      "item_ref": "line-103-2",
+      "goods_amount_minor": 2500,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-10T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-104",
+      "item_ref": "line-104-1",
+      "goods_amount_minor": 9000,
+      "freight_amount_minor": 600,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-18T15:00:00Z"
+    },
+    {
+      "order_ref": "ord-104",
+      "item_ref": "line-104-2",
+      "goods_amount_minor": 3000,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-18T15:00:00Z"
+    },
+    {
+      "order_ref": "ord-105",
+      "item_ref": "line-105-1",
+      "goods_amount_minor": 3500,
+      "freight_amount_minor": 500,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-04-25T09:00:00Z"
+    },
+    {
+      "order_ref": "ord-106",
+      "item_ref": "line-106-1",
+      "goods_amount_minor": 1800,
+      "freight_amount_minor": 200,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-02T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-106",
+      "item_ref": "line-106-2",
+      "goods_amount_minor": 2200,
+      "freight_amount_minor": 100,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-02T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-107",
+      "item_ref": "line-107-1",
+      "goods_amount_minor": 6500,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-08T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-108",
+      "item_ref": "line-108-1",
+      "goods_amount_minor": 3300,
+      "freight_amount_minor": 500,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-13T17:00:00Z"
+    },
+    {
+      "order_ref": "ord-108",
+      "item_ref": "line-108-2",
+      "goods_amount_minor": 1200,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-13T17:00:00Z"
+    },
+    {
+      "order_ref": "ord-109",
+      "item_ref": "line-109-1",
+      "goods_amount_minor": 12000,
+      "freight_amount_minor": 800,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-20T13:00:00Z"
+    },
+    {
+      "order_ref": "ord-110",
+      "item_ref": "line-110-1",
+      "goods_amount_minor": 4500,
+      "freight_amount_minor": 300,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-24T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-110",
+      "item_ref": "line-110-2",
+      "goods_amount_minor": 1500,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-05-24T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-111",
+      "item_ref": "line-111-1",
+      "goods_amount_minor": 7000,
+      "freight_amount_minor": 400,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-01T15:00:00Z"
+    },
+    {
+      "order_ref": "ord-112",
+      "item_ref": "line-112-1",
+      "goods_amount_minor": 5200,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-05T09:00:00Z"
+    },
+    {
+      "order_ref": "ord-113",
+      "item_ref": "line-113-1",
+      "goods_amount_minor": 2200,
+      "freight_amount_minor": 300,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-10T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-114",
+      "item_ref": "line-114-1",
+      "goods_amount_minor": 20000,
+      "freight_amount_minor": 1000,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-14T16:00:00Z"
+    },
+    {
+      "order_ref": "ord-115",
+      "item_ref": "line-115-1",
+      "goods_amount_minor": 8000,
+      "freight_amount_minor": 500,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-18T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-116",
+      "item_ref": "line-116-1",
+      "goods_amount_minor": 2600,
+      "freight_amount_minor": 400,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-22T13:00:00Z"
+    },
+    {
+      "order_ref": "ord-117",
+      "item_ref": "line-117-1",
+      "goods_amount_minor": 1500,
+      "freight_amount_minor": 300,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-27T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-118",
+      "item_ref": "line-118-1",
+      "goods_amount_minor": 160000,
+      "freight_amount_minor": 0,
+      "currency": "CNY",
+      "time_basis_ref": "ctx-item-time-r1",
+      "source_ref": "src-items",
+      "source_version": "r1",
+      "available_at": "2026-06-29T17:00:00Z"
+    }
+  ],
+  "payments": [
+    {
+      "order_ref": "ord-101",
+      "payment_ref": "pay-101-1",
+      "received_amount_minor": 7000,
+      "currency": "CNY",
+      "paid_at": "2026-04-02T10:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-04-02T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-101",
+      "payment_ref": "pay-101-2",
+      "received_amount_minor": 8000,
+      "currency": "CNY",
+      "paid_at": "2026-04-02T10:20:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-04-02T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-102",
+      "payment_ref": "pay-102-1",
+      "received_amount_minor": 4700,
+      "currency": "CNY",
+      "paid_at": "2026-04-05T09:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-04-05T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-103",
+      "payment_ref": "pay-103-1",
+      "received_amount_minor": 8800,
+      "currency": "CNY",
+      "paid_at": "2026-04-10T13:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-04-10T15:00:00Z"
+    },
+    {
+      "order_ref": "ord-104",
+      "payment_ref": "pay-104-1",
+      "received_amount_minor": 7000,
+      "currency": "CNY",
+      "paid_at": "2026-04-18T14:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-04-18T16:00:00Z"
+    },
+    {
+      "order_ref": "ord-104",
+      "payment_ref": "pay-104-2",
+      "received_amount_minor": 5600,
+      "currency": "CNY",
+      "paid_at": "2026-04-18T14:20:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-04-18T16:00:00Z"
+    },
+    {
+      "order_ref": "ord-105",
+      "payment_ref": "pay-105-1",
+      "received_amount_minor": 4000,
+      "currency": "CNY",
+      "paid_at": "2026-04-25T08:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-04-25T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-106",
+      "payment_ref": "pay-106-1",
+      "received_amount_minor": 4300,
+      "currency": "CNY",
+      "paid_at": "2026-05-02T11:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-05-02T13:00:00Z"
+    },
+    {
+      "order_ref": "ord-107",
+      "payment_ref": "pay-107-1",
+      "received_amount_minor": 6500,
+      "currency": "CNY",
+      "paid_at": "2026-05-08T10:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-05-08T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-108",
+      "payment_ref": "pay-108-1",
+      "received_amount_minor": 5000,
+      "currency": "CNY",
+      "paid_at": "2026-05-13T16:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-05-13T18:00:00Z"
+    },
+    {
+      "order_ref": "ord-109",
+      "payment_ref": "pay-109-1",
+      "received_amount_minor": 12800,
+      "currency": "CNY",
+      "paid_at": "2026-05-20T12:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-05-20T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-110",
+      "payment_ref": "pay-110-1",
+      "received_amount_minor": 6300,
+      "currency": "CNY",
+      "paid_at": "2026-05-24T09:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-05-24T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-111",
+      "payment_ref": "pay-111-1",
+      "received_amount_minor": 7400,
+      "currency": "CNY",
+      "paid_at": "2026-06-01T14:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-01T16:00:00Z"
+    },
+    {
+      "order_ref": "ord-112",
+      "payment_ref": "pay-112-1",
+      "received_amount_minor": 5200,
+      "currency": "CNY",
+      "paid_at": "2026-06-05T08:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-05T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-113",
+      "payment_ref": "pay-113-1",
+      "received_amount_minor": 2500,
+      "currency": "CNY",
+      "paid_at": "2026-06-10T11:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-10T13:00:00Z"
+    },
+    {
+      "order_ref": "ord-114",
+      "payment_ref": "pay-114-1",
+      "received_amount_minor": 21000,
+      "currency": "CNY",
+      "paid_at": "2026-06-14T15:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-14T17:00:00Z"
+    },
+    {
+      "order_ref": "ord-115",
+      "payment_ref": "pay-115-1",
+      "received_amount_minor": 6000,
+      "currency": "CNY",
+      "paid_at": "2026-06-18T09:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-18T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-116",
+      "payment_ref": "pay-116-1",
+      "received_amount_minor": 3000,
+      "currency": "CNY",
+      "paid_at": "2026-06-22T12:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-22T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-117",
+      "payment_ref": "pay-117-1",
+      "received_amount_minor": 1800,
+      "currency": "CNY",
+      "paid_at": "2026-06-27T10:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-27T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-118",
+      "payment_ref": "pay-118-1",
+      "received_amount_minor": 160000,
+      "currency": "CNY",
+      "paid_at": "2026-06-29T16:10:00Z",
+      "source_ref": "src-payments",
+      "source_version": "r1",
+      "available_at": "2026-06-29T18:00:00Z"
+    }
+  ],
+  "fulfillment_events": [
+    {
+      "order_ref": "ord-101",
+      "event_ref": "evt-101-1",
+      "event_type": "registered",
+      "event_at": "2026-04-02T10:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-02T11:30:00Z"
+    },
+    {
+      "order_ref": "ord-101",
+      "event_ref": "evt-101-2",
+      "event_type": "delivered",
+      "event_at": "2026-04-04T10:00:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-04T11:00:00Z"
+    },
+    {
+      "order_ref": "ord-102",
+      "event_ref": "evt-102-1",
+      "event_type": "registered",
+      "event_at": "2026-04-05T09:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-05T10:30:00Z"
+    },
+    {
+      "order_ref": "ord-102",
+      "event_ref": "evt-102-2",
+      "event_type": "delivered",
+      "event_at": "2026-04-07T09:00:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-07T10:00:00Z"
+    },
+    {
+      "order_ref": "ord-103",
+      "event_ref": "evt-103-1",
+      "event_type": "registered",
+      "event_at": "2026-04-10T13:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-10T14:30:00Z"
+    },
+    {
+      "order_ref": "ord-103",
+      "event_ref": "evt-103-2",
+      "event_type": "delivered",
+      "event_at": "2026-04-12T13:00:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-12T14:00:00Z"
+    },
+    {
+      "order_ref": "ord-104",
+      "event_ref": "evt-104-1",
+      "event_type": "registered",
+      "event_at": "2026-04-18T14:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-18T15:30:00Z"
+    },
+    {
+      "order_ref": "ord-104",
+      "event_ref": "evt-104-2",
+      "event_type": "delivered",
+      "event_at": "2026-04-20T14:00:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-20T15:00:00Z"
+    },
+    {
+      "order_ref": "ord-105",
+      "event_ref": "evt-105-1",
+      "event_type": "registered",
+      "event_at": "2026-04-25T08:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-25T09:30:00Z"
+    },
+    {
+      "order_ref": "ord-105",
+      "event_ref": "evt-105-2",
+      "event_type": "delivered",
+      "event_at": "2026-04-27T08:00:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-04-27T09:00:00Z"
+    },
+    {
+      "order_ref": "ord-106",
+      "event_ref": "evt-106-1",
+      "event_type": "registered",
+      "event_at": "2026-05-02T11:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-05-02T12:30:00Z"
+    },
+    {
+      "order_ref": "ord-106",
+      "event_ref": "evt-106-2",
+      "event_type": "delivered",
+      "event_at": "2026-05-04T11:00:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-05-04T12:00:00Z"
+    },
+    {
+      "order_ref": "ord-107",
+      "event_ref": "evt-107-1",
+      "event_type": "registered",
+      "event_at": "2026-05-08T10:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-05-08T11:30:00Z"
+    },
+    {
+      "order_ref": "ord-108",
+      "event_ref": "evt-108-1",
+      "event_type": "registered",
+      "event_at": "2026-05-13T16:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-05-13T17:30:00Z"
+    },
+    {
+      "order_ref": "ord-109",
+      "event_ref": "evt-109-1",
+      "event_type": "registered",
+      "event_at": "2026-05-20T12:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-05-20T13:30:00Z"
+    },
+    {
+      "order_ref": "ord-110",
+      "event_ref": "evt-110-1",
+      "event_type": "registered",
+      "event_at": "2026-05-24T09:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-05-24T10:30:00Z"
+    },
+    {
+      "order_ref": "ord-111",
+      "event_ref": "evt-111-1",
+      "event_type": "registered",
+      "event_at": "2026-06-01T14:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-01T15:30:00Z"
+    },
+    {
+      "order_ref": "ord-112",
+      "event_ref": "evt-112-1",
+      "event_type": "registered",
+      "event_at": "2026-06-05T08:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-05T09:30:00Z"
+    },
+    {
+      "order_ref": "ord-113",
+      "event_ref": "evt-113-1",
+      "event_type": "registered",
+      "event_at": "2026-06-10T11:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-10T12:30:00Z"
+    },
+    {
+      "order_ref": "ord-114",
+      "event_ref": "evt-114-1",
+      "event_type": "registered",
+      "event_at": "2026-06-14T15:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-14T16:30:00Z"
+    },
+    {
+      "order_ref": "ord-115",
+      "event_ref": "evt-115-1",
+      "event_type": "registered",
+      "event_at": "2026-06-18T09:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-18T10:30:00Z"
+    },
+    {
+      "order_ref": "ord-116",
+      "event_ref": "evt-116-1",
+      "event_type": "registered",
+      "event_at": "2026-06-22T12:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-22T13:30:00Z"
+    },
+    {
+      "order_ref": "ord-117",
+      "event_ref": "evt-117-1",
+      "event_type": "registered",
+      "event_at": "2026-06-27T10:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-27T11:30:00Z"
+    },
+    {
+      "order_ref": "ord-118",
+      "event_ref": "evt-118-1",
+      "event_type": "registered",
+      "event_at": "2026-06-29T16:30:00Z",
+      "source_ref": "src-fulfillment",
+      "source_version": "r1",
+      "available_at": "2026-06-29T17:30:00Z"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "workflow",
+  "input": "/Users/archer/Documents/ChatGPT/alphaox/docs/contextox/architecture/contextox-mission-loop.workflow.json",
+  "error": "Workflow edge \"decision_to_contract\" has explicit geometry that violates explicit route-route corridor clearance.",
+  "diagnostics": [
+    {
+      "code": "workflow/explicit-pin-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"decision_to_contract\" has explicit geometry that violates explicit route-route corridor clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "decision_to_contract",
+        "from": "human_decision",
+        "to": "approved_contract",
+        "path": "/edges/6/route"
+      },
+      "evidence": {
+        "invariant": "explicit route-route corridor clearance",
+        "conflictingPins": [
+          {
+            "edge": "decision_to_contract",
+            "field": "route",
+            "path": "/edges/6/route",
+            "value": "outside-right"
+          }
+        ],
+        "segmentIndex": 1,
+        "otherSegmentIndex": 2,
+        "routeSegments": [
+          {
+            "edge": "decision_to_contract",
+            "from": [
+              1092,
+              120
+            ],
+            "to": [
+              1092,
+              372
+            ]
+          },
+          {
+            "edge": "persist_or_wait",
+            "from": [
+              1092,
+              288
+            ],
+            "to": [
+              1092,
+              540
+            ]
+          }
+        ],
+        "overlapStart": [
+          1092,
+          288
+        ],
+        "overlapEnd": [
+          1092,
+          372
+        ],
+        "overlapLengthPx": 84,
+        "minimumClearancePx": 8
+      },
+      "supportedFixes": []
+    }
+  ]
+}

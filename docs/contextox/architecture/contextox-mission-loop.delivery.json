@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/Users/archer/Documents/ChatGPT/alphaox/docs/contextox/architecture/contextox-mission-loop.workflow.json",
+  "output": "/Users/archer/Documents/ChatGPT/alphaox/docs/contextox/architecture/contextox-mission-loop.html",
+  "specification": {
+    "sha256": "50fefeed913c0092a2b514a3a36e400e49ac4cb05e06612094ca6ac3adfadd12",
+    "bytes": 7131
+  },
+  "artifact": {
+    "sha256": "ce74e2a5e94e8de3bd722a1de8a386808714ff9f6204f237e31f2a71800f338c",
+    "bytes": 719347
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

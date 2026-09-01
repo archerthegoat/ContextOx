@@ -1,0 +1,288 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "数契：从零定制规范的 Mission 闭环（候选）",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "output": "docs/contextox/architecture/contextox-mission-loop.html"
+  },
+  "lanes": [
+    {
+      "id": "mission_runtime",
+      "label": "Mission 自主执行主链"
+    },
+    {
+      "id": "business_authority",
+      "label": "人类业务裁决",
+      "variant": "exception"
+    },
+    {
+      "id": "execution_continuity",
+      "label": "持久等待与持续演进"
+    }
+  ],
+  "phases": [
+    {
+      "id": "understand_business",
+      "label": "理解业务与目标",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "design_and_investigate",
+      "label": "自主设计与取证",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "approve_initial_standard",
+      "label": "裁决与首份规范",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "security"
+    }
+  ],
+  "mainPath": [
+    "scoped_mission",
+    "business_context",
+    "autonomous_design",
+    "authorized_progress",
+    "standard_proposal",
+    "business_decision",
+    "contract_v1",
+    "observed_change"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "scoped_mission"
+    ],
+    "allowedTerminals": [],
+    "requiredEdges": [
+      {
+        "from": "autonomous_design",
+        "to": "authorized_progress"
+      },
+      {
+        "from": "standard_proposal",
+        "to": "business_decision"
+      },
+      {
+        "from": "business_decision",
+        "to": "contract_v1"
+      },
+      {
+        "from": "authorized_progress",
+        "to": "durable_wait"
+      }
+    ],
+    "requiredPaths": [
+      {
+        "from": "durable_wait",
+        "to": "business_context"
+      },
+      {
+        "from": "observed_change",
+        "to": "business_context"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "scoped_mission",
+      "lane": "mission_runtime",
+      "col": 0,
+      "type": "frontend",
+      "label": "人给目标，建立 Mission",
+      "sublabel": "业务范围 / 授权 / 约束",
+      "tag": "不要求已有规范",
+      "width": 150
+    },
+    {
+      "id": "business_context",
+      "lane": "mission_runtime",
+      "col": 1,
+      "type": "backend",
+      "label": "建立业务上下文",
+      "sublabel": "组织现状 / 证据 / 缺口",
+      "width": 150
+    },
+    {
+      "id": "autonomous_design",
+      "lane": "mission_runtime",
+      "col": 2,
+      "type": "backend",
+      "label": "Agent 自主设计",
+      "sublabel": "规范结构 / 方案 / 下一步",
+      "width": 150
+    },
+    {
+      "id": "authorized_progress",
+      "lane": "mission_runtime",
+      "col": 3,
+      "type": "security",
+      "label": "受控查证与补证",
+      "sublabel": "领域校验后调用工具与任务",
+      "tag": "拒绝即停止",
+      "width": 150
+    },
+    {
+      "id": "standard_proposal",
+      "lane": "mission_runtime",
+      "col": 4,
+      "type": "backend",
+      "label": "准备规范方案",
+      "sublabel": "规则 / 职责 / 例外 / 影响",
+      "width": 150
+    },
+    {
+      "id": "contract_v1",
+      "lane": "mission_runtime",
+      "col": 5,
+      "type": "database",
+      "label": "首份可执行契约",
+      "sublabel": "Contract v1 / 发布提案",
+      "tag": "不等于已发布",
+      "width": 150
+    },
+    {
+      "id": "business_decision",
+      "lane": "business_authority",
+      "col": 4,
+      "type": "security",
+      "label": "有权人业务裁决",
+      "sublabel": "选择方案 / 裁决争议 / 批准",
+      "width": 150
+    },
+    {
+      "id": "durable_wait",
+      "lane": "execution_continuity",
+      "col": 3,
+      "type": "messagebus",
+      "label": "检查点与持久等待",
+      "sublabel": "保存结果 / 依赖 / 期限",
+      "width": 150
+    },
+    {
+      "id": "observed_change",
+      "lane": "execution_continuity",
+      "col": 5,
+      "type": "backend",
+      "label": "观察与规范演进",
+      "sublabel": "获授权变化触发复审",
+      "tag": "演示使用 fixture",
+      "width": 150
+    }
+  ],
+  "edges": [
+    {
+      "id": "mission_scopes_context",
+      "from": "scoped_mission",
+      "to": "business_context",
+      "label": "目标与范围",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "context_informs_design",
+      "from": "business_context",
+      "to": "autonomous_design",
+      "label": "事实与缺口",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "proposal_requires_policy",
+      "from": "autonomous_design",
+      "to": "authorized_progress",
+      "label": "下一步候选",
+      "variant": "security",
+      "role": "main"
+    },
+    {
+      "id": "progress_prepares_standard",
+      "from": "authorized_progress",
+      "to": "standard_proposal",
+      "label": "证据与方案",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "standard_needs_decision",
+      "from": "standard_proposal",
+      "to": "business_decision",
+      "label": "裁决与批准",
+      "variant": "security",
+      "role": "main"
+    },
+    {
+      "id": "decision_creates_contract",
+      "from": "business_decision",
+      "to": "contract_v1",
+      "label": "批准绑定版本",
+      "variant": "security",
+      "role": "main"
+    },
+    {
+      "id": "contract_observation_scope",
+      "from": "contract_v1",
+      "to": "observed_change",
+      "label": "授权观察",
+      "variant": "emphasis",
+      "role": "main",
+      "via": [[1145, 180], [815, 180], [815, 306], [1145, 306]]
+    },
+    {
+      "id": "progress_checkpoints",
+      "from": "authorized_progress",
+      "to": "durable_wait",
+      "label": "结果或等待依赖",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "wake_refreshes_context",
+      "from": "durable_wait",
+      "to": "business_context",
+      "label": "事件唤醒后重检",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "change_reopens_mission",
+      "from": "observed_change",
+      "to": "durable_wait",
+      "label": "复审不复用旧批准",
+      "variant": "dashed",
+      "role": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "从零定制，不只修订",
+      "items": [
+        "从组织目标设计范围、规则、职责、例外与验证方式",
+        "初次交付 Contract v1；已有规范另走修订与演进"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "自主推进与可恢复",
+      "items": [
+        "下一步候选先校验权限、预算、版本与幂等",
+        "持久等待后重检上下文；不要求人逐步点击继续"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "批准和效果分开",
+      "items": [
+        "有权人裁决与批准；契约可执行不等于已发布",
+        "只读 / fixture 演示；生产写入与真实模型另行授权"
+      ]
+    }
+  ]
+}

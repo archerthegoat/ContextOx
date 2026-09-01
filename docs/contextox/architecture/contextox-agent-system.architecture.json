@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "数契：Agent 驱动的系统架构（候选）",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "viewBox": [1390, 750],
+    "output": "docs/contextox/architecture/contextox-agent-system.html"
+  },
+  "components": [
+    { "id": "mission_workbench", "type": "frontend", "label": "业务工作台", "sublabel": "React · 目标 / 流程 / 裁决", "pos": [38, 110], "size": [180, 72] },
+    { "id": "product_access_api", "type": "security", "label": "受控产品 API", "sublabel": "主体校验 · 命令 · 状态投影", "pos": [314, 110], "size": [190, 72] },
+    { "id": "definition_domain", "type": "backend", "label": "定义与协作领域", "sublabel": "Case · 任务 · 裁决 · 契约", "pos": [625, 110], "size": [190, 72] },
+    { "id": "mission_control", "type": "backend", "label": "Mission 执行控制", "sublabel": "唤醒 · 预算 · 等待 · 恢复", "pos": [915, 110], "size": [190, 72] },
+    { "id": "durable_scheduler", "type": "messagebus", "label": "持久调度适配器", "sublabel": "DBOS 优先验证 · 非已选定", "pos": [1160, 110], "size": [200, 72], "tag": "可替换" },
+    { "id": "domain_postgres", "type": "database", "label": "PostgreSQL", "sublabel": "领域状态 · 审计 · outbox", "pos": [625, 330], "size": [190, 72] },
+    { "id": "bounded_agent_run", "type": "backend", "label": "有界 Agent Run", "sublabel": "Pi 适配 · 推理 · 下一步候选", "pos": [915, 330], "size": [190, 72] },
+    { "id": "business_context", "type": "backend", "label": "业务上下文模块", "sublabel": "关系索引 · Context Pack", "pos": [1160, 330], "size": [200, 72] },
+    { "id": "capability_gateway", "type": "security", "label": "受控能力网关", "sublabel": "范围 · 参数 · 幂等 · 收据", "pos": [915, 580], "size": [190, 72] },
+    { "id": "authorized_sources", "type": "external", "label": "已授权证据来源", "sublabel": "文档 · 责任目录 · 下游映射", "pos": [1160, 580], "size": [200, 72] },
+    { "id": "sandbox_publication_target", "type": "external", "label": "沙箱发布目标", "sublabel": "发布 · 读回 · 回滚", "pos": [314, 580], "size": [190, 72], "tag": "路径五 · 另行授权" }
+  ],
+  "connections": [
+    { "id": "workbench_commands", "from": "mission_workbench", "to": "product_access_api", "label": "目标 / 裁决", "variant": "emphasis" },
+    { "id": "authorized_domain_commands", "from": "product_access_api", "to": "definition_domain", "label": "授权命令", "variant": "emphasis" },
+    { "id": "domain_wakes_mission", "from": "definition_domain", "to": "mission_control", "label": "事件唤醒", "variant": "emphasis" },
+    { "id": "durable_resume", "from": "durable_scheduler", "to": "mission_control", "label": "持久恢复", "variant": "dashed" },
+    { "id": "domain_transaction", "from": "definition_domain", "to": "domain_postgres", "label": "事务 / 审计", "labelDy": 80 },
+    { "id": "bounded_reasoning", "from": "mission_control", "to": "bounded_agent_run", "label": "执行 / 结果", "variant": "emphasis", "labelDy": 80 },
+    { "id": "assemble_context_pack", "from": "bounded_agent_run", "to": "business_context", "label": "证据包" },
+    { "id": "context_source_lookup", "from": "business_context", "to": "authorized_sources", "label": "授权检索", "labelDy": 80 },
+    { "id": "guarded_tool_call", "from": "bounded_agent_run", "to": "capability_gateway", "label": "申请能力", "variant": "security", "labelDy": 80 },
+    { "id": "read_source_tool", "from": "capability_gateway", "to": "authorized_sources", "label": "只读查证", "variant": "security" },
+    { "id": "sandbox_release_later", "from": "capability_gateway", "to": "sandbox_publication_target", "label": "目标级授权后发布与读回", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "职责边界", "items": ["候选逻辑架构，不是已实现服务或生产部署", "Web / API / Worker 全栈 TypeScript"] },
+    { "dot": "emerald", "title": "权威与存储", "items": ["领域模块独占业务规则，编排不复制批准规则", "同一 PostgreSQL：领域表、可重建索引、隔离的调度表"] },
+    { "dot": "rose", "title": "首版就有控制", "items": ["主体与工具权限从首版成立，企业 SSO 后置", "虚线为待验证或后续能力；生产发布未授权"] }
+  ]
+}

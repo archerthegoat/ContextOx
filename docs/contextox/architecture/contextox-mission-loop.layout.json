@@ -1,0 +1,405 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    1198,
+    534
+  ],
+  "requiredViewBox": [
+    1198,
+    534
+  ],
+  "columns": [
+    123,
+    281,
+    497,
+    713,
+    929,
+    1087
+  ],
+  "nodes": [
+    {
+      "id": "scoped_mission",
+      "lane": "mission_runtime",
+      "col": 0,
+      "x": 48,
+      "y": 86,
+      "width": 150,
+      "height": 68
+    },
+    {
+      "id": "business_context",
+      "lane": "mission_runtime",
+      "col": 1,
+      "x": 206,
+      "y": 94,
+      "width": 150,
+      "height": 52
+    },
+    {
+      "id": "autonomous_design",
+      "lane": "mission_runtime",
+      "col": 2,
+      "x": 422,
+      "y": 94,
+      "width": 150,
+      "height": 52
+    },
+    {
+      "id": "authorized_progress",
+      "lane": "mission_runtime",
+      "col": 3,
+      "x": 638,
+      "y": 86,
+      "width": 150,
+      "height": 68
+    },
+    {
+      "id": "standard_proposal",
+      "lane": "mission_runtime",
+      "col": 4,
+      "x": 854,
+      "y": 94,
+      "width": 150,
+      "height": 52
+    },
+    {
+      "id": "contract_v1",
+      "lane": "mission_runtime",
+      "col": 5,
+      "x": 1012,
+      "y": 86,
+      "width": 150,
+      "height": 68
+    },
+    {
+      "id": "business_decision",
+      "lane": "business_authority",
+      "col": 4,
+      "x": 854,
+      "y": 220,
+      "width": 150,
+      "height": 52
+    },
+    {
+      "id": "durable_wait",
+      "lane": "execution_continuity",
+      "col": 3,
+      "x": 638,
+      "y": 346,
+      "width": 150,
+      "height": 52
+    },
+    {
+      "id": "observed_change",
+      "lane": "execution_continuity",
+      "col": 5,
+      "x": 1012,
+      "y": 338,
+      "width": 150,
+      "height": 68
+    }
+  ],
+  "edges": [
+    {
+      "id": "change_reopens_mission",
+      "from": "observed_change",
+      "to": "durable_wait",
+      "points": [
+        [
+          1012,
+          372
+        ],
+        [
+          788,
+          372
+        ]
+      ]
+    },
+    {
+      "id": "context_informs_design",
+      "from": "business_context",
+      "to": "autonomous_design",
+      "points": [
+        [
+          356,
+          120
+        ],
+        [
+          422,
+          120
+        ]
+      ]
+    },
+    {
+      "id": "contract_observation_scope",
+      "from": "contract_v1",
+      "to": "observed_change",
+      "points": [
+        [
+          1087,
+          154
+        ],
+        [
+          1087,
+          180
+        ],
+        [
+          757,
+          180
+        ],
+        [
+          757,
+          306
+        ],
+        [
+          1087,
+          306
+        ],
+        [
+          1087,
+          338
+        ]
+      ]
+    },
+    {
+      "id": "decision_creates_contract",
+      "from": "business_decision",
+      "to": "contract_v1",
+      "points": [
+        [
+          1004,
+          239
+        ],
+        [
+          1087,
+          239
+        ],
+        [
+          1087,
+          154
+        ]
+      ]
+    },
+    {
+      "id": "mission_scopes_context",
+      "from": "scoped_mission",
+      "to": "business_context",
+      "points": [
+        [
+          123,
+          154
+        ],
+        [
+          123,
+          186
+        ],
+        [
+          281,
+          186
+        ],
+        [
+          281,
+          146
+        ]
+      ]
+    },
+    {
+      "id": "progress_checkpoints",
+      "from": "authorized_progress",
+      "to": "durable_wait",
+      "points": [
+        [
+          638,
+          120
+        ],
+        [
+          622,
+          120
+        ],
+        [
+          622,
+          231
+        ],
+        [
+          713,
+          231
+        ],
+        [
+          713,
+          346
+        ]
+      ]
+    },
+    {
+      "id": "progress_prepares_standard",
+      "from": "authorized_progress",
+      "to": "standard_proposal",
+      "points": [
+        [
+          788,
+          120
+        ],
+        [
+          854,
+          120
+        ]
+      ]
+    },
+    {
+      "id": "proposal_requires_policy",
+      "from": "autonomous_design",
+      "to": "authorized_progress",
+      "points": [
+        [
+          497,
+          146
+        ],
+        [
+          497,
+          174
+        ],
+        [
+          622,
+          174
+        ],
+        [
+          622,
+          120
+        ],
+        [
+          638,
+          120
+        ]
+      ]
+    },
+    {
+      "id": "standard_needs_decision",
+      "from": "standard_proposal",
+      "to": "business_decision",
+      "points": [
+        [
+          929,
+          94
+        ],
+        [
+          929,
+          78
+        ],
+        [
+          1182,
+          78
+        ],
+        [
+          1182,
+          246
+        ],
+        [
+          1004,
+          246
+        ]
+      ]
+    },
+    {
+      "id": "wake_refreshes_context",
+      "from": "durable_wait",
+      "to": "business_context",
+      "points": [
+        [
+          638,
+          372
+        ],
+        [
+          281,
+          372
+        ],
+        [
+          281,
+          146
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "edge": "change_reopens_mission",
+      "label": "复审不复用旧批准",
+      "x": 900,
+      "y": 362,
+      "width": 86.8,
+      "height": 14
+    },
+    {
+      "edge": "context_informs_design",
+      "label": "事实与缺口",
+      "x": 389,
+      "y": 110,
+      "width": 58,
+      "height": 14
+    },
+    {
+      "edge": "contract_observation_scope",
+      "label": "授权观察",
+      "x": 922,
+      "y": 170,
+      "width": 48.4,
+      "height": 14
+    },
+    {
+      "edge": "decision_creates_contract",
+      "label": "批准绑定版本",
+      "x": 1045.5,
+      "y": 229,
+      "width": 67.6,
+      "height": 14
+    },
+    {
+      "edge": "mission_scopes_context",
+      "label": "目标与范围",
+      "x": 202,
+      "y": 176,
+      "width": 58,
+      "height": 14
+    },
+    {
+      "edge": "progress_checkpoints",
+      "label": "结果或等待依赖",
+      "x": 667.5,
+      "y": 221,
+      "width": 77.2,
+      "height": 14
+    },
+    {
+      "edge": "progress_prepares_standard",
+      "label": "证据与方案",
+      "x": 821,
+      "y": 110,
+      "width": 58,
+      "height": 14
+    },
+    {
+      "edge": "proposal_requires_policy",
+      "label": "下一步候选",
+      "x": 559.5,
+      "y": 164,
+      "width": 58,
+      "height": 14
+    },
+    {
+      "edge": "standard_needs_decision",
+      "label": "裁决与批准",
+      "x": 1055.5,
+      "y": 68,
+      "width": 58,
+      "height": 14
+    },
+    {
+      "edge": "wake_refreshes_context",
+      "label": "事件唤醒后重检",
+      "x": 459.5,
+      "y": 362,
+      "width": 77.2,
+      "height": 14
+    }
+  ],
+  "diagnostics": []
+}
